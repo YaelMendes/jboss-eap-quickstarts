@@ -19,9 +19,7 @@ package org.jboss.as.quickstarts.ejb.remote.client;
 import org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter;
 import org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.naming.*;
 
 import java.util.Hashtable;
 
@@ -49,7 +47,7 @@ public class RemoteEJBClient {
     private static void invokeStatelessBean() throws NamingException {
         // Let's lookup the remote stateless calculator
         final RemoteCalculator statelessRemoteCalculator = lookupRemoteStatelessCalculator();
-        System.out.println("Obtained a remote stateless calculator for invocation");
+        System.out.println("Obtained a remote stateless calculator for invocation:"+statelessRemoteCalculator);
         // invoke on the remote calculator
         int a = 204;
         int b = 340;
@@ -129,8 +127,40 @@ public class RemoteEJBClient {
         // the whole package name.
 
         // let's do the lookup
+
+        Hashtable env = new Hashtable();
+        env.put(Context.INITIAL_CONTEXT_FACTORY,
+                "org.jboss.naming.remote.client.InitialContextFactory");
+        env.put(Context.PROVIDER_URL, "remote://localhost:4447");
+        env.put(Context.SECURITY_PRINCIPAL, "admin");
+        env.put(Context.SECURITY_CREDENTIALS, "admin2016!");
+
+        listNamingEnumeration(env, "java:jboss");
+        listNamingEnumeration(env, "java:global");
+        listNamingEnumeration(env, "java:com");
+        listNamingEnumeration(env, "java:app");
+
+        listNamingEnumeration(env, "ejb:");
+        listNamingEnumeration(env, "ejb:/jboss-ejb-remote-server-side");
+
         return (RemoteCalculator) context.lookup("ejb:/jboss-ejb-remote-server-side/CalculatorBean!"
             + RemoteCalculator.class.getName());
+    }
+
+    private static void listNamingEnumeration(Hashtable env, String prefix) {
+        try {
+            Context ctx = new InitialContext(env);
+
+            NamingEnumeration<NameClassPair> namingEnumeration = ctx.list(prefix);
+
+            System.out.println("namingEnumeration="+namingEnumeration);
+
+            while (namingEnumeration.hasMore()) {
+                System.out.println(namingEnumeration.next().getName());
+            }
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
