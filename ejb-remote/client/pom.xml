@@ -71,6 +71,7 @@
             </dependency>
 
 
+
         </dependencies>
     </dependencyManagement>
 
@@ -102,6 +103,7 @@
             <type>ejb-client</type>
             <version>${project.version}</version>
         </dependency>
+
 
         <!-- Include the ejb client jars -->
         <!--  <dependency>

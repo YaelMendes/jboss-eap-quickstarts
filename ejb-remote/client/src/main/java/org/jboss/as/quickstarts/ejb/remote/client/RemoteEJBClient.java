@@ -19,6 +19,7 @@ package org.jboss.as.quickstarts.ejb.remote.client;
 import org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter;
 import org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator;
 
+import javax.ejb.EJB;
 import javax.naming.*;
 
 import java.util.Hashtable;
@@ -30,6 +31,9 @@ import java.util.Hashtable;
  * @author Jaikiran Pai
  */
 public class RemoteEJBClient {
+
+  //  @EJB
+   // private static RemoteCounter statefulRemoteCounter;
 
     public static void main(String[] args) throws Exception {
         // Invoke a stateless bean
@@ -49,8 +53,8 @@ public class RemoteEJBClient {
         final RemoteCalculator statelessRemoteCalculator = lookupRemoteStatelessCalculator();
         System.out.println("Obtained a remote stateless calculator for invocation:"+statelessRemoteCalculator);
         // invoke on the remote calculator
-        int a = 204;
-        int b = 340;
+        int a = 10;
+        int b = 20;
         System.out.println("Adding " + a + " and " + b + " via the remote stateless calculator deployed on the server");
         int sum = statelessRemoteCalculator.add(a, b);
         System.out.println("Remote calculator returned sum = " + sum);
@@ -59,8 +63,8 @@ public class RemoteEJBClient {
                 + (a + b));
         }
         // try one more invocation, this time for subtraction
-        int num1 = 3434;
-        int num2 = 2332;
+        int num1 = 500;
+        int num2 = 400;
         System.out.println("Subtracting " + num2 + " from " + num1
             + " via the remote stateless calculator deployed on the server");
         int difference = statelessRemoteCalculator.subtract(num1, num2);
@@ -79,6 +83,10 @@ public class RemoteEJBClient {
     private static void invokeStatefulBean() throws NamingException {
         // Let's lookup the remote stateful counter
         final RemoteCounter statefulRemoteCounter = lookupRemoteStatefulCounter();
+
+        // possible with injection for a remote client?
+
+
         System.out.println("Obtained a remote stateful counter for invocation");
         // invoke on the remote counter bean
         final int NUM_TIMES = 5;
@@ -128,6 +136,13 @@ public class RemoteEJBClient {
 
         // let's do the lookup
 
+        showJndi();
+
+        return (RemoteCalculator) context.lookup("ejb:/jboss-ejb-remote-server-side/CalculatorBean!"
+            + RemoteCalculator.class.getName());
+    }
+
+    private static void showJndi() {
         Hashtable env = new Hashtable();
         env.put(Context.INITIAL_CONTEXT_FACTORY,
                 "org.jboss.naming.remote.client.InitialContextFactory");
@@ -142,9 +157,7 @@ public class RemoteEJBClient {
 
         listNamingEnumeration(env, "ejb:");
         listNamingEnumeration(env, "ejb:/jboss-ejb-remote-server-side");
-
-        return (RemoteCalculator) context.lookup("ejb:/jboss-ejb-remote-server-side/CalculatorBean!"
-            + RemoteCalculator.class.getName());
+        listNamingEnumeration(env, "ejb:/jboss-ejb-remote-server-side/CalculatorBean!");
     }
 
     private static void listNamingEnumeration(Hashtable env, String prefix) {
