@@ -16,6 +16,8 @@
  */
 package org.jboss.as.quickstarts.ejb.remote.client;
 
+import org.jboss.as.quickstarts.beans.MountainBean;
+import org.jboss.as.quickstarts.ejb.remote.singleton.BeanEnabler;
 import org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter;
 import org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator;
 
@@ -32,15 +34,50 @@ import java.util.Hashtable;
  */
 public class RemoteEJBClient {
 
-  //  @EJB
-   // private static RemoteCounter statefulRemoteCounter;
+    //@EJB
+   // private static BeanEnabler beanEnabler;
 
     public static void main(String[] args) throws Exception {
         // Invoke a stateless bean
-        invokeStatelessBean();
+        //invokeStatelessBean();
 
         // Invoke a stateful bean
-        invokeStatefulBean();
+        //invokeStatefulBean();
+
+        // Create a mountain
+        final BeanEnabler beanEnabler = lookupRemoteSingmetonBeanEnabler();
+        beanEnabler.createMountain("Les Alpes");
+    }
+
+    private static BeanEnabler lookupRemoteSingmetonBeanEnabler() throws NamingException {
+        final Hashtable<String, String> jndiProperties = new Hashtable<>();
+        jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+        final Context context = new InitialContext(jndiProperties);
+
+        // The JNDI lookup name for a stateless session bean has the syntax of:
+        // ejb:<appName>/<moduleName>/<distinctName>/<beanName>!<viewClassName>
+        //
+        // <appName> The application name is the name of the EAR that the EJB is deployed in
+        // (without the .ear). If the EJB JAR is not deployed in an EAR then this is
+        // blank. The app name can also be specified in the EAR's application.xml
+        //
+        // <moduleName> By the default the module name is the name of the EJB JAR file (without the
+        // .jar suffix). The module name might be overridden in the ejb-jar.xml
+        //
+        // <distinctName> : EAP allows each deployment to have an (optional) distinct name.
+        // This example does not use this so leave it blank.
+        //
+        // <beanName> : The name of the session been to be invoked.
+        //
+        // <viewClassName>: The fully qualified classname of the remote interface. Must include
+        // the whole package name.
+
+        // let's do the lookup
+
+       // showJndi();
+
+        return (BeanEnabler) context.lookup("ejb:/jboss-ejb-remote-server-side/BeanEnablerEJB!"
+                + BeanEnabler.class.getName());
     }
 
     /**
@@ -136,9 +173,9 @@ public class RemoteEJBClient {
 
         // let's do the lookup
 
-        showJndi();
+       // showJndi();
 
-        return (RemoteCalculator) context.lookup("ejb:/jboss-ejb-remote-server-side/CalculatorBean!"
+        return (RemoteCalculator) context.lookup("ejb:/jboss-ejb-remote-server-side/RemoteCalculatorImpl!"
             + RemoteCalculator.class.getName());
     }
 
@@ -206,7 +243,7 @@ public class RemoteEJBClient {
         // the whole package name.
 
         // let's do the lookup
-        return (RemoteCounter) context.lookup("ejb:/jboss-ejb-remote-server-side/CounterBean!"
+        return (RemoteCounter) context.lookup("ejb:/jboss-ejb-remote-server-side/RemoteCounterImpl!"
             + RemoteCounter.class.getName() + "?stateful");
     }
 }

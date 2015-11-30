@@ -1,6 +1,8 @@
 package org.jboss.as.quickstarts.dao;
 
 import com.sun.istack.internal.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class Mountain {
 
     @Id
@@ -17,5 +21,9 @@ public class Mountain {
 
     @OneToMany
     private List<Summit> summits = new ArrayList<>();
+
+    public Mountain(String name) {
+        this.name = name;
+    }
 
 }

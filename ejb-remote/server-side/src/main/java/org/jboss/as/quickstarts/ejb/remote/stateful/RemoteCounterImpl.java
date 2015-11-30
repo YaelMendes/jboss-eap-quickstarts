@@ -24,7 +24,7 @@ import javax.ejb.Stateful;
  */
 @Stateful
 @Remote(RemoteCounter.class)
-public class CounterBean implements RemoteCounter {
+public class RemoteCounterImpl implements RemoteCounter {
 
     private int count = 0;
 
