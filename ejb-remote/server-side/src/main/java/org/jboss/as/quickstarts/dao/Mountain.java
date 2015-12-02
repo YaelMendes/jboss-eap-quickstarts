@@ -26,4 +26,6 @@ public class Mountain {
         this.name = name;
     }
 
+    public Mountain() {
+    }
 }
