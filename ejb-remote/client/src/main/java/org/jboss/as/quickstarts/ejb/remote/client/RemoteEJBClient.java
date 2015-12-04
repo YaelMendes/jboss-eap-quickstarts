@@ -186,7 +186,7 @@ public class RemoteEJBClient {
                 "org.jboss.naming.remote.client.InitialContextFactory");
         env.put(Context.PROVIDER_URL, "remote://localhost:4447");
         env.put(Context.SECURITY_PRINCIPAL, "admin");
-        env.put(Context.SECURITY_CREDENTIALS, "admin2016!");
+        env.put(Context.SECURITY_CREDENTIALS, "israel2016!");
 
         listNamingEnumeration(env, "java:jboss");
         listNamingEnumeration(env, "java:global");
