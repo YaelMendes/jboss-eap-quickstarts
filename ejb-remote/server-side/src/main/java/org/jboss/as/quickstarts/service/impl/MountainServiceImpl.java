@@ -13,12 +13,14 @@ import javax.persistence.PersistenceContext;
 @Singleton
 public class  MountainServiceImpl implements MountainService {
 
-    //@PersistenceContext(unitName = "mountainPersistenceContext")
-    //private EntityManager entityManager;
+    @PersistenceContext(unitName = "mountainPersistenceContextXA")
+    private EntityManager entityManager;
 
     public void createMountain(Mountain mountain) {
 
         System.out.println("Entering Service.createMountain...");
+
+        entityManager.persist(mountain);
 
         //TODO
     }
