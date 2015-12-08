@@ -75,6 +75,20 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>1.0.0.Final</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.shrinkwrap</groupId>
+                <artifactId>shrinkwrap-bom</artifactId>
+                <version>1.2.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -115,9 +129,38 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>5.0.4.Final</version>
         </dependency>
-
-
-
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-core</artifactId>
+            <version>1.0.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-container-test-api</artifactId>
+            <version>1.0.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shrinkwrap</groupId>
+            <artifactId>shrinkwrap-depchain</artifactId>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.as</groupId>
+            <artifactId>jboss-as-arquillian-common</artifactId>
+            <version>7.2.0.Final</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -146,5 +189,41 @@
 
         </plugins>
     </build>
+
+
+     <profiles>
+         <profile>
+         <id>arquillian-jbossas-remote</id>
+         <dependencies>
+             <dependency>
+                 <groupId>org.jboss.spec</groupId>
+                 <artifactId>jboss-javaee-7.0</artifactId>
+                 <version>${version.jboss.spec.javaee.7.0}</version>
+                 <type>pom</type>
+                 <scope>provided</scope>
+             </dependency>
+
+             <dependency>
+                 <groupId>org.jboss.as</groupId>
+                 <artifactId>jboss-as-arquillian-container-remote</artifactId>
+                 <version>7.2.0.Final</version>
+                 <scope>test</scope>
+             </dependency>
+           <!--  <dependency>
+                 <groupId>org.jboss.as</groupId>
+                 <artifactId>jboss-as-arquillian-common</artifactId>
+                 <version>7.2.0.Final</version>
+             </dependency>-->
+             <dependency>
+                 <groupId>org.jboss.arquillian.protocol</groupId>
+                 <artifactId>arquillian-protocol-servlet</artifactId>
+                 <scope>test</scope>
+             </dependency>
+         </dependencies>
+             <activation>
+                 <activeByDefault>true</activeByDefault>
+             </activation>
+     </profile>
+     </profiles>
 
 </project>

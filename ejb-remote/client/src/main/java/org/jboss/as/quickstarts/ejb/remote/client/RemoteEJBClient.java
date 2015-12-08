@@ -47,7 +47,9 @@ public class RemoteEJBClient {
         // Create a mountain
         final BeanEnabler beanEnabler = lookupRemoteSingmetonBeanEnabler();
         System.out.println("Calling bean.createMountain...");
+        beanEnabler.createMountain("Les Pyrénées");
         beanEnabler.createMountain("Les Alpes");
+        beanEnabler.createMountain("La Cordillère des Andes");
     }
 
     private static BeanEnabler lookupRemoteSingmetonBeanEnabler() throws NamingException {

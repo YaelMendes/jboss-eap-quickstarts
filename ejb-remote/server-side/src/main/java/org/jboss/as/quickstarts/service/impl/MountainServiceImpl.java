@@ -8,6 +8,7 @@ import org.jboss.as.quickstarts.service.MountainService;
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 
 @Singleton
@@ -20,7 +21,12 @@ public class  MountainServiceImpl implements MountainService {
 
         System.out.println("Entering Service.createMountain...");
 
-        entityManager.persist(mountain);
+
+
+            if (entityManager.find(Mountain.class, mountain.getName()) == null) {
+
+            entityManager.persist(mountain);
+        }
 
         //TODO
     }
