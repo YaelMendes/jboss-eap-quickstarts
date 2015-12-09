@@ -14,6 +14,9 @@ public class BeanEnablerImpl implements BeanEnabler{
     @EJB
     private MountainBean mountainBean;
 
+   // @EJB
+   // private MessageBeanProducer MessageBeanProducer;
+
     public BeanEnablerImpl() {
     }
 
