@@ -190,8 +190,12 @@ public class RemoteEJBClient {
 
        // showJndi();
 
-        return (BeanEnabler) context.lookup("ejb:/jboss-ejb-remote-server-side/BeanEnablerEJB!"
+        BeanEnabler beanEnabler = (BeanEnabler) context.lookup("ejb:/jboss-ejb-remote-server-side/BeanEnablerEJB!"
                 + BeanEnabler.class.getName());
+
+        System.out.println("beanEnabler="+beanEnabler);
+
+        return beanEnabler;
     }
 
     /**
