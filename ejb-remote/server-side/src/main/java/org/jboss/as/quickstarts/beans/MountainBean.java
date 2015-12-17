@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface MountainBean {
 
+    public void createMountain(Mountain mountain);
 
     public void createMountain(String name);
 

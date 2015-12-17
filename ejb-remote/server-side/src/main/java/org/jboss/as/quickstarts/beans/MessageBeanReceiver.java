@@ -15,7 +15,7 @@ import javax.jms.MessageListener;
         @ActivationConfigProperty(propertyName="destination", propertyValue="jms/javaee6/ExpiryQueue"),
 }
 )
-@Interceptors(LoggingInterceptor.class)
+//@Interceptors(LoggingInterceptor.class)
 public class MessageBeanReceiver implements MessageListener {
     public MessageBeanReceiver() {
     }

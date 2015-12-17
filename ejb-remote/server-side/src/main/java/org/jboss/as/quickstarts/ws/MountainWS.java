@@ -1,7 +1,12 @@
 package org.jboss.as.quickstarts.ws;
 
-/**
- * Created by EYME5300 on 17/12/15.
- */
+import org.jboss.as.quickstarts.dao.Mountain;
+
+import javax.jws.WebService;
+
+@WebService
 public interface MountainWS {
+
+    public Mountain nameExists(String mountainName);
+
 }

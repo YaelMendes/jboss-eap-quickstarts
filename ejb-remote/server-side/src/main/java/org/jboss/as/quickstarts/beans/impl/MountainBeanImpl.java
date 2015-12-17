@@ -24,18 +24,22 @@ public class MountainBeanImpl implements MountainBean {
     MountainService mountainService;
 
     @Override
+    public void createMountain(Mountain mountain) {
+        mountainService.createMountain(mountain);
+    }
+
+    @Override
     public void createMountain(String name) {
         mountainService.createMountain(new Mountain(name));
     }
 
     @Override
     public void addSummit(Mountain mountain, Summit summit) {
-
+        //TODO
     }
 
     @Override
     public Optional<Summit> findHigherSummit(Mountain mountain) {
-
         return  mountain.getSummits().stream().max(Comparator.naturalOrder());
     }
 }

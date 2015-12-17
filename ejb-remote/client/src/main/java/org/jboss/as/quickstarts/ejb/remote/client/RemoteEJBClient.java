@@ -16,15 +16,24 @@
  */
 package org.jboss.as.quickstarts.ejb.remote.client;
 
-import org.jboss.as.quickstarts.beans.MountainBean;
+import org.jboss.as.process.protocol.Connection;
+import org.jboss.as.quickstarts.beans.MessageBeanProducer;
+import org.jboss.as.quickstarts.dao.Mountain;
+import org.jboss.as.quickstarts.dao.Summit;
 import org.jboss.as.quickstarts.ejb.remote.singleton.BeanEnabler;
 import org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter;
 import org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator;
+import org.jboss.as.quickstarts.ws.impl.MountainWSImpl;
+import org.jboss.util.HashCode;
 
-import javax.ejb.EJB;
+import javax.enterprise.inject.spi.Producer;
+import javax.inject.Inject;
+import javax.jms.*;
+import javax.jms.Queue;
 import javax.naming.*;
 
-import java.util.Hashtable;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * A sample program which acts a remote client for a EJB deployed on JBoss EAP server. This program shows how to lookup stateful and
@@ -34,9 +43,6 @@ import java.util.Hashtable;
  */
 public class RemoteEJBClient {
 
-    //@EJB
-   // private static BeanEnabler beanEnabler;
-
     public static void main(String[] args) throws Exception {
         // Invoke a stateless bean
         //invokeStatelessBean();
@@ -45,14 +51,119 @@ public class RemoteEJBClient {
         //invokeStatefulBean();
 
         // Create a mountain
-        final BeanEnabler beanEnabler = lookupRemoteSingmetonBeanEnabler();
+        final BeanEnabler beanEnabler = lookupRemoteSingletonBeanEnabler();
         System.out.println("Calling bean.createMountain...");
+
+        createSomeMountains(beanEnabler);
+
+        createJura(beanEnabler);
+
+        createVosgesWS(beanEnabler);
+
+
+        System.out.println("...main() finish");
+    }
+
+    private static void createVosgesWS(BeanEnabler beanEnabler) {
+
+        //MountainWSImpl mountainWSService = new MountainWSImplService.getCardValidatorPort();
+
+    }
+
+    private static void createJura(BeanEnabler beanEnabler) {
+        Mountain jura = new Mountain("Le Jura");
+
+        Summit summit = new Summit("crêt de la neige", 1720);
+        List<Summit> summits = Arrays.asList(summit);
+        jura.setSummits(summits);
+        beanEnabler.createMountain(jura);
+    }
+
+    private static void createSomeMountains(BeanEnabler beanEnabler) {
         beanEnabler.createMountain("Les Pyrénées");
         beanEnabler.createMountain("Les Alpes");
         beanEnabler.createMountain("La Cordillère des Andes");
+        beanEnabler.createMountain("L'Himalaya");
     }
 
-    private static BeanEnabler lookupRemoteSingmetonBeanEnabler() throws NamingException {
+    private static void testCollection() {
+
+        Collection collection = new ArrayList();
+
+        //collection.
+
+        List list = new ArrayList<>();
+
+        HashMap hashMap = new HashMap();
+        hashMap.put(null, null);
+
+        // NPE !!!
+        Hashtable hashtable = new Hashtable<>();
+        hashtable.put(null, null);
+
+        HashSet hashSet = new HashSet();
+        hashSet.add(null);
+
+    }
+
+    private static void producesSomeMessage() {
+        try {
+            /*
+            final Hashtable<String, String> jndiProperties = new Hashtable<>();
+            jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+            final Context context = new InitialContext(jndiProperties);
+
+            Destination destination = (Destination) context.lookup("java:/jms/queue/ExpiryQueue");
+
+            */
+
+            // Récupération du contexte JNDI
+            Context jndiContext = new InitialContext();
+
+            // Recherche des objets administrés
+            ConnectionFactory connectionFactory = (ConnectionFactory) jndiContext.lookup("jms/javaee6/ConnectionFactory");
+            Queue queue = (Queue) jndiContext.lookup("jms/javaee6/Queue");
+// Création des artéfacts nécessaires pour se connecter
+// à la file
+            javax.jms.Connection connection = connectionFactory.createConnection();
+            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            MessageProducer producer = session.createProducer(queue);
+// Envoi d’un message de texte à la file
+            TextMessage message = session.createTextMessage();
+            message.setText("This is a text message");
+            producer.send(message);
+            connection.close();
+
+
+            // java:/ConnectionFactory
+            // java:jboss/exported/jms/RemoteConnectionFactory
+          /*  QueueConnectionFactory queueConnectionFactory =
+                    (QueueConnectionFactory) context.lookup("java:/JmsXA");
+
+            QueueConnection connection = queueConnectionFactory.createQueueConnection();
+
+            Session session = connection.createSession();
+
+            MessageProducer producer = session.createProducer(destination);
+
+            Message message = session.createTextMessage("coucou la cou");
+            producer.send(destination, message);
+
+        } catch (NamingException e) {
+            e.printStackTrace();
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }*/
+
+
+        } catch (NamingException e) {
+            e.printStackTrace();
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static BeanEnabler lookupRemoteSingletonBeanEnabler() throws NamingException {
         final Hashtable<String, String> jndiProperties = new Hashtable<>();
         jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
         final Context context = new InitialContext(jndiProperties);

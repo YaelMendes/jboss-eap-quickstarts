@@ -5,13 +5,11 @@ import org.jboss.as.quickstarts.beans.MessageBeanProducer;
 import javax.annotation.ManagedBean;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.jms.JMSContext;
-import javax.jms.JMSDestinationDefinition;
-import javax.jms.JMSDestinationDefinitions;
-import javax.jms.Queue;
+import javax.jms.*;
 import javax.servlet.annotation.WebServlet;
 
 @JMSDestinationDefinitions(
@@ -23,7 +21,9 @@ import javax.servlet.annotation.WebServlet;
                 )})
 //@Stateless
 //@WebServlet("/ProduceSomeMessage")
-@ManagedBean
+//@ManagedBean
+//@Named
+//@Local(MessageBeanProducer.class)
 public class MessageBeanProducerImpl implements MessageBeanProducer {
 
     /*
@@ -40,5 +40,13 @@ public class MessageBeanProducerImpl implements MessageBeanProducer {
     private Queue queue;
 
 
+    @Override
+    public void sendOneMessage(String text) {
+        context.createProducer().send(queue, text);
+    }
 
+    @Override
+    public void simpleOutBean(String s) {
+        System.out.println("sysout::::::::" + s);
+    }
 }

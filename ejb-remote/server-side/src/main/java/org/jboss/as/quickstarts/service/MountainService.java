@@ -11,4 +11,5 @@ public interface MountainService {
 
     public void createSummit(Summit summit);
 
+    public Mountain findMountain(String mountainName);
 }

@@ -17,21 +17,22 @@ public class  MountainServiceImpl implements MountainService {
     @PersistenceContext(unitName = "mountainPersistenceContextXA")
     private EntityManager entityManager;
 
+    @Override
     public void createMountain(Mountain mountain) {
-
-        System.out.println("Entering Service.createMountain...");
-
-
-
             if (entityManager.find(Mountain.class, mountain.getName()) == null) {
-
-            entityManager.persist(mountain);
+                entityManager.persist(mountain);
         }
-
-        //TODO
     }
 
+    @Override
     public void createSummit(Summit summit) {
-        //TODO
+        if (entityManager.find(Summit.class, summit.getName()) == null) {
+            entityManager.persist(summit);
+        }
+    }
+
+    @Override
+    public Mountain findMountain(String mountainName) {
+        return entityManager.find(Mountain.class, mountainName);
     }
 }
