@@ -6,13 +6,20 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Comparator;
 
 @Getter
 @Setter
 @Entity
-@ToString
+@ToString(exclude="mountain")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Summit implements Comparable<Summit>, Serializable {
 
     public Summit() {}
@@ -23,13 +30,16 @@ public class Summit implements Comparable<Summit>, Serializable {
     }
 
     @Id
-   // @Basic
+    @NotNull
     private String name;
 
     @Basic
     private Integer height;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "mountain_fk", nullable = false)
+    @NotNull
+    @XmlTransient
     private Mountain mountain;
 
     @Override

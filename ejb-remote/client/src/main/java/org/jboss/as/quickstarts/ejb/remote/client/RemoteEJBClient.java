@@ -76,6 +76,7 @@ public class RemoteEJBClient {
         Summit summit = new Summit("crêt de la neige", 1720);
         List<Summit> summits = Arrays.asList(summit);
         jura.setSummits(summits);
+        summits.stream().forEach(s->s.setMountain(jura));
         beanEnabler.createMountain(jura);
     }
 
