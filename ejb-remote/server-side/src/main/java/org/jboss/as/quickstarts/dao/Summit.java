@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -23,13 +24,15 @@ public class Summit implements Comparable<Summit>, Serializable {
     }
 
     @Id
-   // @Basic
+    @NotNull
     private String name;
 
     @Basic
     private Integer height;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "mountain_fk", nullable = false)
+    @NotNull
     private Mountain mountain;
 
     @Override

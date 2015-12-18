@@ -21,6 +21,8 @@ public class MountainWSImpl implements MountainWS {
     @Override
     @WebMethod
     public Mountain nameExists(String mountainName) {
-        return mountainService.findMountain(mountainName);
+        Mountain mountain = mountainService.findMountain(mountainName);
+        System.out.println("mountain="+mountain);
+        return mountain;
     }
 }
