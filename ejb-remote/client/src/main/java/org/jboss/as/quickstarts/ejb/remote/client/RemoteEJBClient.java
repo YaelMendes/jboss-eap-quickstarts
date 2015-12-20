@@ -16,23 +16,15 @@
  */
 package org.jboss.as.quickstarts.ejb.remote.client;
 
-import org.jboss.as.process.protocol.Connection;
-import org.jboss.as.quickstarts.beans.MessageBeanProducer;
 import org.jboss.as.quickstarts.dao.Mountain;
 import org.jboss.as.quickstarts.dao.Summit;
 import org.jboss.as.quickstarts.ejb.remote.singleton.BeanEnabler;
 import org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter;
 import org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator;
-import org.jboss.as.quickstarts.ws.impl.MountainWSImpl;
-import org.jboss.util.HashCode;
 
-import javax.enterprise.inject.spi.Producer;
-import javax.inject.Inject;
 import javax.jms.*;
 import javax.jms.Queue;
 import javax.naming.*;
-
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -60,13 +52,20 @@ public class RemoteEJBClient {
 
         createVosgesWS(beanEnabler);
 
+      //  findHigherSummitFromJura(beanEnabler);
 
         System.out.println("...main() finish");
+    }
+
+    private static void findHigherSummitFromJura(BeanEnabler beanEnabler) {
+        beanEnabler.findHigherSummit("Le Jura");
     }
 
     private static void createVosgesWS(BeanEnabler beanEnabler) {
 
         //MountainWSImpl mountainWSService = new MountainWSImplService.getCardValidatorPort();
+
+
 
     }
 

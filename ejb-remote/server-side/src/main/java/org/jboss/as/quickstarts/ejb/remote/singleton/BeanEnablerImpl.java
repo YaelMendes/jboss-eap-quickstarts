@@ -1,13 +1,17 @@
 package org.jboss.as.quickstarts.ejb.remote.singleton;
 
-import org.jboss.as.quickstarts.beans.MountainBean;
 import org.jboss.as.quickstarts.beans.MessageBeanProducer;
+import org.jboss.as.quickstarts.beans.MountainBean;
 import org.jboss.as.quickstarts.dao.Mountain;
+import org.jboss.as.quickstarts.dao.Summit;
+import org.jboss.as.quickstarts.ws.MountainWS;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
+import javax.xml.ws.WebServiceRef;
+import java.util.List;
 
 
 @Singleton(name = "BeanEnablerEJB")
@@ -20,6 +24,9 @@ public class BeanEnablerImpl implements BeanEnabler{
     @Inject
     private MessageBeanProducer messageBeanProducer;
 
+    @WebServiceRef
+    private MountainWS mountainWSRef;
+
     public BeanEnablerImpl() {
     }
 
@@ -31,6 +38,16 @@ public class BeanEnablerImpl implements BeanEnabler{
     @Override
     public void createMountain(Mountain mountain) {
         mountainBean.createMountain(mountain);
+    }
+
+    @Override
+    public List<Summit> findSummits(String mountainName) {
+        return mountainBean.findSummits(mountainName);
+    }
+
+    @Override
+    public Summit findHigherSummit(String mountainName) {
+        return mountainWSRef.findHigherSummit(mountainName);
     }
 
     @Override

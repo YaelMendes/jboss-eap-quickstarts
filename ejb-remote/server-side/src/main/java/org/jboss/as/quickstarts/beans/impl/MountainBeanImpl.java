@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 
 import javax.interceptor.Interceptors;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 @Stateless
@@ -41,5 +42,15 @@ public class MountainBeanImpl implements MountainBean {
     @Override
     public Optional<Summit> findHigherSummit(Mountain mountain) {
         return  mountain.getSummits().stream().max(Comparator.naturalOrder());
+    }
+/*
+    @Override
+    public Optional<Summit> findHigherSummit(String mountainName) {
+        return findHigherSummit(mountainService.findMountain(mountainName));
+    }*/
+
+    @Override
+    public List<Summit> findSummits(String mountainName) {
+        return mountainService.findMountain(mountainName).getSummits();
     }
 }

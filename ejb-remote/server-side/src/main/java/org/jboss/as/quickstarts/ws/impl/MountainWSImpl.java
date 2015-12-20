@@ -10,9 +10,8 @@ import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
 import javax.jws.WebService;
+import java.util.Comparator;
 
 @Remote(MountainWS.class)
 @WebService
@@ -24,7 +23,6 @@ public class MountainWSImpl implements MountainWS {
     MountainService mountainService;
 
     @Override
-    @WebMethod
     public Mountain nameExists(String mountainName) {
         Mountain mountain = mountainService.findMountain(mountainName);
 
@@ -42,5 +40,12 @@ public class MountainWSImpl implements MountainWS {
         summit.setMountain(mountain);
 
         return mountainService.createSummit(summit);
+    }
+
+    @Override
+    public Summit findHigherSummit(String mountainName) {
+        Summit highersummit = mountainService.findMountain(mountainName).getSummits().stream().max(Comparator.naturalOrder()).get();
+        System.out.println("higher summit == "+highersummit);
+        return highersummit;
     }
 }
