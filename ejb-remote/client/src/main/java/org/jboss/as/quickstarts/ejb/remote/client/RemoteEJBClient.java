@@ -167,6 +167,7 @@ public class RemoteEJBClient {
     private static BeanEnabler lookupRemoteSingletonBeanEnabler() throws NamingException {
         final Hashtable<String, String> jndiProperties = new Hashtable<>();
         jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+      //  jndiProperties.put("jboss.naming.client.ejb.context", "true");
         final Context context = new InitialContext(jndiProperties);
 
         // The JNDI lookup name for a stateless session bean has the syntax of:
@@ -193,6 +194,8 @@ public class RemoteEJBClient {
 
         BeanEnabler beanEnabler = (BeanEnabler) context.lookup("ejb:/jboss-ejb-remote-server-side/BeanEnablerEJB!"
                 + BeanEnabler.class.getName());
+
+        //beanEnabler = (BeanEnabler) context.lookup("java:app/jboss-ejb-remote-server-side/BeanEnablerEJB");
 
         System.out.println("beanEnabler="+beanEnabler);
 

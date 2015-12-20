@@ -12,7 +12,7 @@ public interface MountainBean {
 
     public void createMountain(String name);
 
-    public void addSummit(Mountain mountain, Summit summit);
+    public void createSummit(Summit summit);
 
     public Optional<Summit> findHigherSummit(Mountain mountain);
 

@@ -34,8 +34,8 @@ public class MountainBeanImpl implements MountainBean {
     }
 
     @Override
-    public void addSummit(Mountain mountain, Summit summit) {
-        //TODO
+    public void createSummit(Summit summit) {
+        mountainService.createSummit(summit);
     }
 
     @Override

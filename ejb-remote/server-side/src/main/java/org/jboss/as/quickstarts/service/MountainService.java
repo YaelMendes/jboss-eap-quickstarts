@@ -9,7 +9,8 @@ public interface MountainService {
 
     public void createMountain(Mountain mountain);
 
-    public void createSummit(Summit summit);
+    public boolean createSummit(Summit summit);
 
     public Mountain findMountain(String mountainName);
+
 }
