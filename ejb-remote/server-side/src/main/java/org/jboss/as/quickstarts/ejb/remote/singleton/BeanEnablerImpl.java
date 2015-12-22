@@ -24,7 +24,7 @@ public class BeanEnablerImpl implements BeanEnabler{
     @Inject
     private MessageBeanProducer messageBeanProducer;
 
-    @WebServiceRef
+    @WebServiceRef(wsdlLocation = "http://localhost:8080/jboss-ejb-remote-server-side/MountainWSImpl?wsdl")
     private MountainWS mountainWSRef;
 
     public BeanEnablerImpl() {
