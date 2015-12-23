@@ -43,6 +43,11 @@ public class MountainBeanImpl implements MountainBean {
     public Optional<Summit> findHigherSummit(Mountain mountain) {
         return  mountain.getSummits().stream().max(Comparator.naturalOrder());
     }
+
+    @Override
+    public Optional<Summit> findHigherSummit(String mountainName) {
+        return findHigherSummit(mountainService.findMountain(mountainName));
+    }
 /*
     @Override
     public Optional<Summit> findHigherSummit(String mountainName) {

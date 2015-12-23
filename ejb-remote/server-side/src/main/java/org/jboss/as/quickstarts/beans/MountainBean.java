@@ -17,7 +17,7 @@ public interface MountainBean {
 
     public Optional<Summit> findHigherSummit(Mountain mountain);
 
- /*   public Optional<Summit> findHigherSummit(String mountainName);*/
+    public Optional<Summit> findHigherSummit(String mountainName);
 
     List<Summit> findSummits(String mountainName);
 }

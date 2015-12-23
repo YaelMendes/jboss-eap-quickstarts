@@ -7,6 +7,7 @@ import org.jboss.as.quickstarts.utils.LoggingInterceptor;
 import org.jboss.as.quickstarts.ws.MountainWS;
 
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
