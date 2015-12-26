@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.dao;
+package org.jboss.as.quickstarts.rs.dao;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +20,6 @@ public class WalkTrail {
 
     private Integer length;
 
-    @OneToOne(fetch=FetchType.EAGER)
-    private Mountain mountain;
+   // @OneToOne(fetch=FetchType.EAGER)
+   // private Mountain mountain;
 }

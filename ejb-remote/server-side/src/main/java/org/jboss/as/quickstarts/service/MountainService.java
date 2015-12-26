@@ -2,7 +2,7 @@ package org.jboss.as.quickstarts.service;
 
 import org.jboss.as.quickstarts.dao.Mountain;
 import org.jboss.as.quickstarts.dao.Summit;
-import org.jboss.as.quickstarts.dao.WalkTrail;
+//import org.jboss.as.quickstarts.dao.WalkTrail;
 
 
 public interface MountainService {
@@ -13,5 +13,5 @@ public interface MountainService {
 
     public Mountain findMountain(String mountainName);
 
-    void createWalkTrail(WalkTrail walkTrail);
+  //  void createWalkTrail(WalkTrail walkTrail);
 }

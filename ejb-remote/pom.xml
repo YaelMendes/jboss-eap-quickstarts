@@ -110,6 +110,8 @@
         <module>client</module>
     </modules>
 
+
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
