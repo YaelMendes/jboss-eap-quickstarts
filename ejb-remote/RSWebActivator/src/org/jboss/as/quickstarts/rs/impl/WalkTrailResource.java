@@ -28,7 +28,7 @@ public class WalkTrailResource {
     @GET
     @Produces("text/plain")
     public String getBookTitle() {
-        return "H2G2";
+        return "un jour un walk!!";
     }
 
     /*
