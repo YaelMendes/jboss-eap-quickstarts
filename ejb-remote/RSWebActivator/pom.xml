@@ -114,6 +114,11 @@
             <scope>provided</scope> <!-- provided if youre deploying to jboss as 7.1 -->
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>5.0.4.Final</version>
+        </dependency>
     </dependencies>
 
     <build>

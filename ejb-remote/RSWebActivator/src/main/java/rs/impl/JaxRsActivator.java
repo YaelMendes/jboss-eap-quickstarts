@@ -1,4 +1,4 @@
-package org.jboss.as.quickstarts.rs.impl;
+package rs.impl;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
