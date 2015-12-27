@@ -7,6 +7,8 @@ import org.jboss.as.quickstarts.dao.Summit;
 import org.jboss.as.quickstarts.ejb.remote.singleton.BeanEnabler;
 import org.jboss.as.quickstarts.ws.MountainWS;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Singleton;
@@ -32,6 +34,7 @@ public class BeanEnablerImpl implements BeanEnabler{
     }
 
     @Override
+    @RolesAllowed("admin")
     public void createMountain(String name) {
         mountainBean.createMountain(name);
     }
@@ -42,6 +45,7 @@ public class BeanEnablerImpl implements BeanEnabler{
     }
 
     @Override
+    @PermitAll
     public List<Summit> findSummits(String mountainName) {
         return mountainBean.findSummits(mountainName);
     }
