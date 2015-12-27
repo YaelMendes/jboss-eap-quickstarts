@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Maven: org.jboss.quickstarts.eap:jboss-ejb-remote-server-side:ejb-client:client:7.0.0-SNAPSHOT">
+    <CLASSES />
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/quickstarts/eap/jboss-ejb-remote-server-side/7.0.0-SNAPSHOT/jboss-ejb-remote-server-side-7.0.0-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/quickstarts/eap/jboss-ejb-remote-server-side/7.0.0-SNAPSHOT/jboss-ejb-remote-server-side-7.0.0-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
