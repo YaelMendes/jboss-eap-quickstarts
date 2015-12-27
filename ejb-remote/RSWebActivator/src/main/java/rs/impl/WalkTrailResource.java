@@ -22,10 +22,10 @@ public class WalkTrailResource {
     @Context
     private UriInfo uriInfo;
 
-   // @EJB
-   // MountainService mountainService;
+    // @EJB
+    // MountainService mountainService;
 
-     static List<WalkTrail> walks = new ArrayList<>();
+    static List<WalkTrail> walks = new ArrayList<>();
 
     static {
         walks.add(new WalkTrail(Long.valueOf(1), "gr20 corse", 198));
@@ -38,39 +38,47 @@ public class WalkTrailResource {
     private EntityManager em;
 
     @GET
-    @Produces("text/plain")
     @Path("example")
+    @Produces("text/plain")
     public String getBookTitle() {
         return "un jour un walk need!!";
     }
 
     @GET
-    @Produces("application/json")
     @Path("exampleJson")
+    @Produces("application/json")
     public String getExampleJson() {
         return "un jour un walk need en json bissss!!";
     }
 
     @GET
-    @Produces( "application/json")
     @Path("allWalks")
+    @Produces( "application/json")
     public List<WalkTrail> getAllWalks() {
-      //  Query query = em.createNativeQuery("SELECT * FROM WalkTrail", WalkTrail.class);
+        //  Query query = em.createNativeQuery("SELECT * FROM WalkTrail", WalkTrail.class);
         //List<WalkTrail> walks = query.getResultList();
         return walks;
     }
 
     @GET
     @Path("/operations/{walkid}")
+    @Produces("application/json")
     public WalkTrail getWalk(@PathParam("walkid") String walkid) {
         return walks.stream().filter(w -> w.getId()==Long.valueOf(walkid)).findFirst().get();
     }
 
     @GET
+    @Path("/operations")
     @Produces("application/json")
+    public WalkTrail getWalkQuery(@QueryParam("walkid") String walkid) {
+        return walks.stream().filter(w -> w.getId()==Long.valueOf(walkid)).findFirst().get();
+    }
+
+    @GET
     @Path("longest")
+    @Produces("application/json")
     public WalkTrail getLongest() {
-      return  walks.stream().max(Comparator.naturalOrder()).get();
+        return  walks.stream().max(Comparator.naturalOrder()).get();
     }
 
     /*
