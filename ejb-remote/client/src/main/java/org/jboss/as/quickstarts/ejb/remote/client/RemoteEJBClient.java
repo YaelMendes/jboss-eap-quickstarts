@@ -22,7 +22,6 @@ import org.jboss.as.quickstarts.ejb.remote.singleton.BeanEnabler;
 import org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter;
 import org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator;
 
-import javax.enterprise.inject.Model;
 import javax.jms.*;
 import javax.jms.Queue;
 import javax.naming.*;
@@ -59,7 +58,9 @@ public class RemoteEJBClient {
     }
 
     private static void testJMS(BeanEnabler beanEnabler) {
-        beanEnabler.simpleOut("coucou en param mm okiii!");
+
+        beanEnabler.sendOneMessage("***serious msg 5***");
+
     }
 
     private static void findHigherSummitFromJura(BeanEnabler beanEnabler) {

@@ -13,11 +13,13 @@ public interface MountainBean {
 
     public void createMountain(String mountainName);
 
+    public void deleteMountain(Mountain mountain);
+
     public void createSummit(Summit summit);
 
     public Optional<Summit> findHigherSummit(Mountain mountain);
 
     public Optional<Summit> findHigherSummit(String mountainName);
 
-    List<Summit> findSummits(String mountainName);
+    public List<Summit> findSummits(String mountainName);
 }

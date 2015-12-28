@@ -2,26 +2,25 @@ package org.jboss.as.quickstarts.ejb.remote.singleton.impl;
 
 import org.jboss.as.quickstarts.beans.MessageBeanProducer;
 import org.jboss.as.quickstarts.beans.MountainBean;
-import org.jboss.as.quickstarts.beans.impl.MessageBeanProducerImpl;
 import org.jboss.as.quickstarts.dao.Mountain;
 import org.jboss.as.quickstarts.dao.Summit;
 import org.jboss.as.quickstarts.ejb.remote.singleton.BeanEnabler;
-import org.jboss.as.quickstarts.ws.MountainWS;
 
+import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Remote;
+import javax.ejb.SessionContext;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
-import javax.xml.ws.WebServiceRef;
+import java.util.Arrays;
 import java.util.List;
 
 
 @Singleton(name = "BeanEnablerEJB")
 @Remote(BeanEnabler.class)
 @PermitAll
-public class BeanEnablerImpl implements BeanEnabler{
+public class BeanEnablerImpl implements BeanEnabler {
 
     @EJB
     private MountainBean mountainBean;
@@ -32,21 +31,36 @@ public class BeanEnablerImpl implements BeanEnabler{
    // @WebServiceRef(wsdlLocation = "http://localhost:8080/jboss-ejb-remote-server-side/MountainWSImpl?wsdl")
   //  private MountainWS mountainWSRef;
 
+    @Resource
+    private SessionContext ctx;
+
     public BeanEnablerImpl() {
     }
 
     @Override
-    //@RolesAllowed("admin")
+    @PermitAll
+    //@RolesAllowed({"Administrator"})
     public void createMountain(String name) {
+
+        System.out.println("principal in BeanEnablerImpl.createMountain:"+ctx.getCallerPrincipal());
+        System.out.println("principal.name in BeanEnablerImpl.createMountain:"+ctx.getCallerPrincipal().getName());
+
+        List<String> roles = Arrays.asList("Administrator", "Auditor", "Deployer", "Maintainer", "Monitor", "Operator", "SuperUser");
+
+        roles.stream().forEach(r -> System.out.println("isUserInRole("+r+"):"+ctx.isCallerInRole(r)) );
+
         mountainBean.createMountain(name);
     }
 
     @Override
+    @PermitAll
+    //@RolesAllowed({"Administrator"})
     public void createMountain(Mountain mountain) {
         mountainBean.createMountain(mountain);
     }
 
     @Override
+    @PermitAll
     public List<Summit> findSummits(String mountainName) {
         return mountainBean.findSummits(mountainName);
     }
@@ -56,15 +70,17 @@ public class BeanEnablerImpl implements BeanEnabler{
         return mountainBean.findHigherSummit(mountainName).get();
     }
 
+ /*   @Override
+    public Summit findHigherSummitWS(String mountainName) {
+        return mountainWSRef.findHigherSummit(mountainName);
+    }*/
+
     @Override
     public void sendOneMessage(String text) {
         messageBeanProducer.sendOneMessage(text);
     }
 
-    @Override
-    public void simpleOut(String s) {
-        messageBeanProducer.simpleOutBean(s);
-    }
+
 
 
 }

@@ -7,5 +7,4 @@ public interface MessageBeanProducer {
 
     void sendOneMessage(String text);
 
-    void simpleOutBean(String s);
 }

@@ -6,8 +6,10 @@ import org.jboss.as.quickstarts.dao.Summit;
 import org.jboss.as.quickstarts.service.MountainService;
 import org.jboss.as.quickstarts.utils.LoggingInterceptor;
 
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Local;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 
 import javax.interceptor.Interceptors;
@@ -20,9 +22,11 @@ import java.util.Optional;
 @Interceptors(LoggingInterceptor.class)
 public class MountainBeanImpl implements MountainBean {
 
-
     @EJB
     MountainService mountainService;
+
+    @Resource
+    private SessionContext ctx;
 
     @Override
     public void createMountain(Mountain mountain) {
@@ -31,7 +35,15 @@ public class MountainBeanImpl implements MountainBean {
 
     @Override
     public void createMountain(String name) {
+        System.out.println("principal in MountainBean.createMountain:"+ctx.getCallerPrincipal());
+        System.out.println("principal.name in MountainBean.createMountain:"+ctx.getCallerPrincipal().getName());
+
         mountainService.createMountain(new Mountain(name));
+    }
+
+    @Override
+    public void deleteMountain(Mountain mountain) {
+        mountainService.deleteMountain(mountain);
     }
 
     @Override

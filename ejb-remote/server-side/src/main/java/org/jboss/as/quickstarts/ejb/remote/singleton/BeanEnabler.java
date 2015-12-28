@@ -20,5 +20,4 @@ public interface BeanEnabler {
 
     void sendOneMessage(String s);
 
-    void simpleOut(String s);
 }

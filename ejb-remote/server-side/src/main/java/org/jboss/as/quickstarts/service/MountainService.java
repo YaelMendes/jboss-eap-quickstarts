@@ -7,11 +7,12 @@ import org.jboss.as.quickstarts.dao.Summit;
 
 public interface MountainService {
 
-    public void createMountain(Mountain mountain);
+    void createMountain(Mountain mountain);
 
-    public boolean createSummit(Summit summit);
+    boolean createSummit(Summit summit);
 
-    public Mountain findMountain(String mountainName);
+    Mountain findMountain(String mountainName);
 
-  //  void createWalkTrail(WalkTrail walkTrail);
+    void deleteMountain(Mountain mountain);
+
 }
