@@ -10,15 +10,15 @@ import java.util.List;
  */
 public interface BeanEnabler {
 
-    public void createMountain(String mountainName);
+    void createMountain(String mountainName);
 
-    public void createMountain(Mountain mountain);
+    void createMountain(Mountain mountain);
 
-    public List<Summit> findSummits(String mountainName);
+    List<Summit> findSummits(String mountainName);
 
-    public Summit findHigherSummit(String mountainName);
+    Summit findHigherSummit(String mountainName);
 
-    public void sendOneMessage(String s);
+    void sendOneMessage(String s);
 
-    public void simpleOut(String s);
+    void simpleOut(String s);
 }

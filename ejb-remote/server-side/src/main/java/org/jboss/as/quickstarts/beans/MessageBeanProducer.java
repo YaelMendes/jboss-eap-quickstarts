@@ -5,7 +5,7 @@ package org.jboss.as.quickstarts.beans;
  */
 public interface MessageBeanProducer {
 
-    public void sendOneMessage(String text);
+    void sendOneMessage(String text);
 
-    public void simpleOutBean(String s);
+    void simpleOutBean(String s);
 }

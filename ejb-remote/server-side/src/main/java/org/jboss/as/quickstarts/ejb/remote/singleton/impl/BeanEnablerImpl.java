@@ -2,6 +2,7 @@ package org.jboss.as.quickstarts.ejb.remote.singleton.impl;
 
 import org.jboss.as.quickstarts.beans.MessageBeanProducer;
 import org.jboss.as.quickstarts.beans.MountainBean;
+import org.jboss.as.quickstarts.beans.impl.MessageBeanProducerImpl;
 import org.jboss.as.quickstarts.dao.Mountain;
 import org.jboss.as.quickstarts.dao.Summit;
 import org.jboss.as.quickstarts.ejb.remote.singleton.BeanEnabler;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @Singleton(name = "BeanEnablerEJB")
 @Remote(BeanEnabler.class)
+@PermitAll
 public class BeanEnablerImpl implements BeanEnabler{
 
     @EJB
@@ -34,7 +36,7 @@ public class BeanEnablerImpl implements BeanEnabler{
     }
 
     @Override
-    @RolesAllowed("admin")
+    //@RolesAllowed("admin")
     public void createMountain(String name) {
         mountainBean.createMountain(name);
     }
@@ -45,7 +47,6 @@ public class BeanEnablerImpl implements BeanEnabler{
     }
 
     @Override
-    @PermitAll
     public List<Summit> findSummits(String mountainName) {
         return mountainBean.findSummits(mountainName);
     }
@@ -55,11 +56,6 @@ public class BeanEnablerImpl implements BeanEnabler{
         return mountainBean.findHigherSummit(mountainName).get();
     }
 
- /*   @Override
-    public Summit findHigherSummitWS(String mountainName) {
-        return mountainWSRef.findHigherSummit(mountainName);
-    }*/
-
     @Override
     public void sendOneMessage(String text) {
         messageBeanProducer.sendOneMessage(text);
@@ -67,7 +63,6 @@ public class BeanEnablerImpl implements BeanEnabler{
 
     @Override
     public void simpleOut(String s) {
-        //TODO : call to simple out from lbeanProducer
         messageBeanProducer.simpleOutBean(s);
     }
 

@@ -22,6 +22,7 @@ import org.jboss.as.quickstarts.ejb.remote.singleton.BeanEnabler;
 import org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter;
 import org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator;
 
+import javax.enterprise.inject.Model;
 import javax.jms.*;
 import javax.jms.Queue;
 import javax.naming.*;
@@ -52,9 +53,13 @@ public class RemoteEJBClient {
 
         createVosgesWS(beanEnabler);
 
-      //  findHigherSummitFromJura(beanEnabler);
+        testJMS(beanEnabler);
 
         System.out.println("...main() finish");
+    }
+
+    private static void testJMS(BeanEnabler beanEnabler) {
+        beanEnabler.simpleOut("coucou en param mm okiii!");
     }
 
     private static void findHigherSummitFromJura(BeanEnabler beanEnabler) {
