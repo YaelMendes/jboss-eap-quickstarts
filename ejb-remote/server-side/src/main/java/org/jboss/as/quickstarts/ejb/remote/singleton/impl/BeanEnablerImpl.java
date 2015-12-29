@@ -1,6 +1,7 @@
 package org.jboss.as.quickstarts.ejb.remote.singleton.impl;
 
-import org.jboss.as.quickstarts.beans.MessageBeanProducer;
+import org.jboss.as.quickstarts.messages.creator.MessageBeanCreator;
+import org.jboss.as.quickstarts.messages.producer.MessageBeanProducer;
 import org.jboss.as.quickstarts.beans.MountainBean;
 import org.jboss.as.quickstarts.dao.Mountain;
 import org.jboss.as.quickstarts.dao.Summit;
@@ -27,6 +28,9 @@ public class BeanEnablerImpl implements BeanEnabler {
 
     @Inject
     private MessageBeanProducer messageBeanProducer;
+
+    @Inject
+    private MessageBeanCreator messageBeanCreator;
 
    // @WebServiceRef(wsdlLocation = "http://localhost:8080/jboss-ejb-remote-server-side/MountainWSImpl?wsdl")
   //  private MountainWS mountainWSRef;
@@ -76,11 +80,15 @@ public class BeanEnablerImpl implements BeanEnabler {
     }*/
 
     @Override
-    public void sendOneMessage(String text) {
-        messageBeanProducer.sendOneMessage(text);
+    public void sendOneMessage(String mountainName, int mountainHeight) {
+        messageBeanProducer.sendOneMessage(mountainName, mountainHeight);
     }
 
-
+    /*
+    @Override
+    public void createQueue(String queueName) {
+        messageBeanCreator.createQueue(queueName);
+    }*/
 
 
 }

@@ -1,10 +1,9 @@
-package org.jboss.as.quickstarts.beans.impl;
-
-import org.jboss.as.quickstarts.beans.MessageBeanProducer;
+package org.jboss.as.quickstarts.messages.producer.impl;
 
 import javax.annotation.Resource;
 import javax.jms.*;
 
+// JEE7 only
 /*@JMSDestinationDefinitions(
         value = {
                 @JMSDestinationDefinition(
@@ -12,10 +11,11 @@ import javax.jms.*;
                         interfaceName = "javax.jms.Queue",
                         destinationName = "ExpiryQueue"
                 )})*/
-public class MessageBeanProducerImpl implements MessageBeanProducer {
+public class ExpiryProducerImpl {
 
+    // JEE7 only
     // @Resource
-    //  private JMSContext context;
+      private JMSContext context;
 
     @Resource(mappedName = "java:/ConnectionFactory")
     private static ConnectionFactory connectionFactory;

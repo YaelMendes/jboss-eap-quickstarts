@@ -52,15 +52,25 @@ public class RemoteEJBClient {
 
         createVosgesWS(beanEnabler);
 
-        testJMS(beanEnabler);
+        testJMSsendMsg(beanEnabler);
+
 
         System.out.println("...main() finish");
     }
 
-    private static void testJMS(BeanEnabler beanEnabler) {
+    /*
+    private static void testCreateQueue(BeanEnabler beanEnabler) {
 
-        beanEnabler.sendOneMessage("***serious msg 5***");
+        beanEnabler.createQueue("newQueue1");
+    }*/
 
+    private static void testJMSsendMsg(BeanEnabler beanEnabler) {
+
+        beanEnabler.sendOneMessage("Pic d 'Anie", 2547);
+        beanEnabler.sendOneMessage("Dent d'orlu", 2222);
+        beanEnabler.sendOneMessage("Pic d'aneto", 3404);
+        beanEnabler.sendOneMessage("L'Ossau", 2889);
+        beanEnabler.sendOneMessage("Mont Blanc", 4810);
     }
 
     private static void findHigherSummitFromJura(BeanEnabler beanEnabler) {

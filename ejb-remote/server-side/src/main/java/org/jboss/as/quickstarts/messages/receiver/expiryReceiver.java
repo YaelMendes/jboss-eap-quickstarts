@@ -1,11 +1,7 @@
-package org.jboss.as.quickstarts.beans;
+package org.jboss.as.quickstarts.messages.receiver;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageListener;
-import javax.jms.TextMessage;
 
 
 @MessageDriven(mappedName="jms/queue/ExpiryQueue", activationConfig =
@@ -20,19 +16,6 @@ import javax.jms.TextMessage;
                 @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
 
         })
-public class MessageBeanReceiver implements MessageListener {
+public class ExpiryReceiver extends MessageTracer {
 
-    @Override
-    public void onMessage(Message message) {
-        System.out.println("------ Message Received:"+message);
-
-        if( message != null && message instanceof TextMessage) {
-            try {
-                System.out.println( "cast passed!  message: " + (((TextMessage) message).getText()));
-            } catch (JMSException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
 }

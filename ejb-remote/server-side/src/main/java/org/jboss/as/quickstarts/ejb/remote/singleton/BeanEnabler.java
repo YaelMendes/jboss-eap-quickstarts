@@ -18,6 +18,7 @@ public interface BeanEnabler {
 
     Summit findHigherSummit(String mountainName);
 
-    void sendOneMessage(String s);
+    void sendOneMessage(String mountainName, int mountainHeight);
 
+    //  void createQueue(String newQueue1);
 }
