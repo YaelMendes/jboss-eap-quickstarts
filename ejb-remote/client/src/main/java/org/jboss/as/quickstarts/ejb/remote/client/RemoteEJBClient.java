@@ -71,6 +71,14 @@ public class RemoteEJBClient {
         beanEnabler.sendOneMessage("Pic d'aneto", 3404);
         beanEnabler.sendOneMessage("L'Ossau", 2889);
         beanEnabler.sendOneMessage("Mont Blanc", 4810);
+
+        beanEnabler.sendOneMessage("in see deeper summit", -1547);
+
+        beanEnabler.sendMessageAndCreateSummit("Les Pyrénées", "Mont Perdu", 3355);
+
+        beanEnabler.sendMessageAndCreateSummit("Les Pyrénées", "Mont impossibbble", -784);
+
+        beanEnabler.sendMessageAndCreateSummit("Les Pyrénées", "Mont tout tendre", 1);
     }
 
     private static void findHigherSummitFromJura(BeanEnabler beanEnabler) {

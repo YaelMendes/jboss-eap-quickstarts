@@ -1,18 +1,15 @@
 package org.jboss.as.quickstarts.ejb.remote.singleton.impl;
 
-import org.jboss.as.quickstarts.messages.creator.MessageBeanCreator;
-import org.jboss.as.quickstarts.messages.producer.MessageBeanProducer;
 import org.jboss.as.quickstarts.beans.MountainBean;
 import org.jboss.as.quickstarts.dao.Mountain;
 import org.jboss.as.quickstarts.dao.Summit;
 import org.jboss.as.quickstarts.ejb.remote.singleton.BeanEnabler;
+import org.jboss.as.quickstarts.messages.creator.MessageBeanCreator;
+import org.jboss.as.quickstarts.messages.producer.MessageBeanProducer;
 
 import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
-import javax.ejb.EJB;
-import javax.ejb.Remote;
-import javax.ejb.SessionContext;
-import javax.ejb.Singleton;
+import javax.ejb.*;
 import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
@@ -21,6 +18,7 @@ import java.util.List;
 @Singleton(name = "BeanEnablerEJB")
 @Remote(BeanEnabler.class)
 @PermitAll
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class BeanEnablerImpl implements BeanEnabler {
 
     @EJB
@@ -82,6 +80,16 @@ public class BeanEnablerImpl implements BeanEnabler {
     @Override
     public void sendOneMessage(String mountainName, int mountainHeight) {
         messageBeanProducer.sendOneMessage(mountainName, mountainHeight);
+    }
+
+    @Override
+    public void sendMessageAndCreateSummit(String mountainName, String summitName,  int summitHeight) {
+        Summit summit = new Summit();
+        summit.setMountain(mountainBean.findMountain(mountainName));
+        summit.setName(summitName);
+        summit.setHeight(summitHeight);
+        mountainBean.createSummit(summit);
+        messageBeanProducer.sendOneMessage(mountainName, summitHeight);
     }
 
     /*

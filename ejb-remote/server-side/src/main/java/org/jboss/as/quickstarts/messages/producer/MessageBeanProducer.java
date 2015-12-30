@@ -2,9 +2,6 @@ package org.jboss.as.quickstarts.messages.producer;
 
 import javax.jms.*;
 
-/**
- * Created by EYME5300 on 10/12/15.
- */
 public interface MessageBeanProducer {
 
     String MOUNTAIN_HEIGHT_PROPERTY = "mountainHeight";

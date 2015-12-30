@@ -7,11 +7,7 @@ import org.jboss.as.quickstarts.service.MountainService;
 import org.jboss.as.quickstarts.utils.LoggingInterceptor;
 
 import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.ejb.Local;
-import javax.ejb.SessionContext;
-import javax.ejb.Stateless;
-
+import javax.ejb.*;
 import javax.interceptor.Interceptors;
 import java.util.Comparator;
 import java.util.List;
@@ -20,6 +16,7 @@ import java.util.Optional;
 @Stateless
 @Local(MountainBean.class)
 @Interceptors(LoggingInterceptor.class)
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class MountainBeanImpl implements MountainBean {
 
     @EJB
@@ -69,5 +66,10 @@ public class MountainBeanImpl implements MountainBean {
     @Override
     public List<Summit> findSummits(String mountainName) {
         return mountainService.findMountain(mountainName).getSummits();
+    }
+
+    @Override
+    public Mountain findMountain(String mountainName) {
+        return  mountainService.findMountain(mountainName);
     }
 }

@@ -5,9 +5,7 @@ import org.jboss.as.quickstarts.dao.Summit;
 
 import java.util.List;
 
-/**
- * Created by EYME5300 on 30/11/15.
- */
+
 public interface BeanEnabler {
 
     void createMountain(String mountainName);
@@ -19,6 +17,8 @@ public interface BeanEnabler {
     Summit findHigherSummit(String mountainName);
 
     void sendOneMessage(String mountainName, int mountainHeight);
+
+    void sendMessageAndCreateSummit(String mountainName, String summitName, int summitHeight);
 
     //  void createQueue(String newQueue1);
 }
