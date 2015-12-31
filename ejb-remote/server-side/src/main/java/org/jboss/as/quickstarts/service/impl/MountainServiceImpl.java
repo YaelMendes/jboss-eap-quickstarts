@@ -3,14 +3,15 @@ package org.jboss.as.quickstarts.service.impl;
 
 import org.jboss.as.quickstarts.dao.Mountain;
 import org.jboss.as.quickstarts.dao.Summit;
-//import org.jboss.as.quickstarts.dao.WalkTrail;
 import org.jboss.as.quickstarts.service.MountainService;
 
-import javax.ejb.Singleton;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@Singleton
+
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class  MountainServiceImpl implements MountainService {
 
     @PersistenceContext(unitName = "mountainPersistenceContextXA")
@@ -44,13 +45,5 @@ public class  MountainServiceImpl implements MountainService {
         return entityManager.find(Mountain.class, mountainName);
     }
 
-
-
-  /*  @Override
-    public void createWalkTrail(WalkTrail walkTrail) {
-        if (entityManager.find(WalkTrail.class, walkTrail.getId()) == null) {
-            entityManager.persist(walkTrail);
-        }
-    }*/
 
 }

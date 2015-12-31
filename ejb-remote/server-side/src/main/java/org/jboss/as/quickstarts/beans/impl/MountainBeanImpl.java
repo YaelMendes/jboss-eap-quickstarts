@@ -8,6 +8,7 @@ import org.jboss.as.quickstarts.utils.LoggingInterceptor;
 
 import javax.annotation.Resource;
 import javax.ejb.*;
+import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import java.util.Comparator;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.Optional;
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class MountainBeanImpl implements MountainBean {
 
-    @EJB
+    @Inject
     MountainService mountainService;
 
     @Resource

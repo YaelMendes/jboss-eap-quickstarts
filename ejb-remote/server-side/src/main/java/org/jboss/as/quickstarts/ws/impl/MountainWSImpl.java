@@ -6,10 +6,9 @@ import org.jboss.as.quickstarts.service.MountainService;
 import org.jboss.as.quickstarts.utils.LoggingInterceptor;
 import org.jboss.as.quickstarts.ws.MountainWS;
 
-import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.jws.WebService;
 import java.util.Comparator;
@@ -20,7 +19,7 @@ import java.util.Comparator;
 @Interceptors(LoggingInterceptor.class)
 public class MountainWSImpl implements MountainWS {
 
-    @EJB
+    @Inject
     MountainService mountainService;
 
     @Override

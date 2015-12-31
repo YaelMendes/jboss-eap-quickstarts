@@ -54,8 +54,13 @@ public class RemoteEJBClient {
 
         testJMSsendMsg(beanEnabler);
 
+        testJMSTopicsendMsg(beanEnabler);
 
         System.out.println("...main() finish");
+    }
+
+    private static void testJMSTopicsendMsg(BeanEnabler beanEnabler) {
+        beanEnabler.sendTopicMessage("Pic d 'Anie O Topic", 9999);
     }
 
     /*

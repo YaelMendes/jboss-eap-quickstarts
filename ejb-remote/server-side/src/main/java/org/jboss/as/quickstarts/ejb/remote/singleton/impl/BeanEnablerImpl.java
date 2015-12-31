@@ -6,6 +6,7 @@ import org.jboss.as.quickstarts.dao.Summit;
 import org.jboss.as.quickstarts.ejb.remote.singleton.BeanEnabler;
 import org.jboss.as.quickstarts.messages.creator.MessageBeanCreator;
 import org.jboss.as.quickstarts.messages.producer.MessageBeanProducer;
+import org.jboss.as.quickstarts.messages.producer.impl.TopicProducer;
 
 import javax.annotation.Resource;
 import javax.annotation.security.PermitAll;
@@ -26,6 +27,10 @@ public class BeanEnablerImpl implements BeanEnabler {
 
     @Inject
     private MessageBeanProducer messageBeanProducer;
+
+    @Inject
+    @TopicProducer
+    private MessageBeanProducer messageBeanProducerTopic;
 
     @Inject
     private MessageBeanCreator messageBeanCreator;
@@ -72,14 +77,14 @@ public class BeanEnablerImpl implements BeanEnabler {
         return mountainBean.findHigherSummit(mountainName).get();
     }
 
- /*   @Override
-    public Summit findHigherSummitWS(String mountainName) {
-        return mountainWSRef.findHigherSummit(mountainName);
-    }*/
-
     @Override
     public void sendOneMessage(String mountainName, int mountainHeight) {
         messageBeanProducer.sendOneMessage(mountainName, mountainHeight);
+    }
+
+    @Override
+    public void sendTopicMessage(String mountainName, int mountainHeight) {
+        messageBeanProducerTopic.sendOneMessage(mountainName, mountainHeight);
     }
 
     @Override

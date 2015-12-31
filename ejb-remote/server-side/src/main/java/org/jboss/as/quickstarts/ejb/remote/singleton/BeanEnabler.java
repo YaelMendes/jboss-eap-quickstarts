@@ -20,5 +20,6 @@ public interface BeanEnabler {
 
     void sendMessageAndCreateSummit(String mountainName, String summitName, int summitHeight);
 
-    //  void createQueue(String newQueue1);
+    void sendTopicMessage(String mountainName, int mountainHeight);
+
 }

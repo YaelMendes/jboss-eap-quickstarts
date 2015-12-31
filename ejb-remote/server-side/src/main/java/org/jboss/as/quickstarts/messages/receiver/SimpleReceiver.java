@@ -5,7 +5,7 @@ import org.jboss.as.quickstarts.messages.producer.MessageBeanProducer;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 
-@MessageDriven(mappedName="jms/queue/ExpiryQueue", activationConfig =
+@MessageDriven(activationConfig =
         {
                 @ActivationConfigProperty(propertyName="messagingType", propertyValue="javax.jms.MessageListener"),
                 @ActivationConfigProperty(propertyName="destinationType", propertyValue="javax.jms.Queue"),
