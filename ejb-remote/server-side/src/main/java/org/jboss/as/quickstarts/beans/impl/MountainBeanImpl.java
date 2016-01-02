@@ -5,9 +5,14 @@ import org.jboss.as.quickstarts.dao.Mountain;
 import org.jboss.as.quickstarts.dao.Summit;
 import org.jboss.as.quickstarts.service.MountainService;
 import org.jboss.as.quickstarts.utils.LoggingInterceptor;
+import org.jboss.ejb3.annotation.Clustered;
 
 import javax.annotation.Resource;
-import javax.ejb.*;
+import javax.ejb.Local;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import java.util.Comparator;
@@ -15,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Stateless
+@Clustered
 @Local(MountainBean.class)
 @Interceptors(LoggingInterceptor.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)

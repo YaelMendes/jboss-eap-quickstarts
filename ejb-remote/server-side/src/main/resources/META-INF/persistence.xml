@@ -15,19 +15,20 @@
 -->
 
     <persistence-unit name='mountainPersistenceContextXA' transaction-type="JTA">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <jta-data-source>java:jboss/datasources/MySqlXADS_3</jta-data-source>
-        <properties>
-            <property name="hibernate.archive.autodetection" value="class, hbm"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <!--
-                        <property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider"/>
-                        <property name="hibernate.cache.use_query_cache" value="true"/>
+       <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <!--    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
+           <jta-data-source>java:jboss/datasources/MySqlXADS_3</jta-data-source>
+           <properties>
+               <property name="hibernate.archive.autodetection" value="class, hbm"/>
+               <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+               <property name="hibernate.hbm2ddl.auto" value="update"/>
+               <!--
+                           <property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider"/>
+                           <property name="hibernate.cache.use_query_cache" value="true"/>
 
-                        <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
-                        <property name="hibernate.generate_statistics" value="true"/>
-                       <property name="hibernate.cache.use_structured_entries" value="true"/>-->
+                           <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
+                           <property name="hibernate.generate_statistics" value="true"/>
+                          <property name="hibernate.cache.use_structured_entries" value="true"/>-->
         </properties>
     </persistence-unit>
 
