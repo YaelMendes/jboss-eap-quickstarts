@@ -1,6 +1,7 @@
 package org.jboss.as.quickstarts.dao;
 
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -38,6 +39,12 @@ public class Summit implements Comparable<Summit>, Serializable {
     @NotNull
     @XmlTransient
     private Mountain mountain;
+
+    @Version
+    @Column(name = "optlock", columnDefinition = "integer DEFAULT 0", nullable = false)
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private long version = 0L;
 
     @Override
     public int compareTo(Summit s) {
