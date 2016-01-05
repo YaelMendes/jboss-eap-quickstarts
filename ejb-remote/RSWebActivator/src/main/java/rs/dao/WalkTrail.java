@@ -10,14 +10,18 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
+@Table(name = "walktrail",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"description", "length"}))
 public class WalkTrail implements Comparable<WalkTrail> {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "description", unique=true)
     private String description;
 
+    @Column(name = "length", unique=false)
     private Integer length;
 
     public WalkTrail(Long id, String description, Integer length) {
@@ -34,6 +38,4 @@ public class WalkTrail implements Comparable<WalkTrail> {
         return length.compareTo(s.getLength());
     }
 
-    // @OneToOne(fetch=FetchType.EAGER)
-   // private Mountain mountain;
 }
