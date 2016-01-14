@@ -1,6 +1,7 @@
 package rs.impl;
 
 
+import rs.WalkTrailRS;
 import rs.dao.WalkTrail;
 
 import javax.persistence.EntityManager;
@@ -13,11 +14,9 @@ import java.util.Comparator;
 import java.util.List;
 
 
-@Path("walks")
-//@Stateless
 @Produces({"application/xml", "application/json"})
 @Consumes({"application/xml", "application/json"})
-public class WalkTrailResource {
+public class WalkTrailRSImpl implements WalkTrailRS {
 
     @Context
     private UriInfo uriInfo;
@@ -37,46 +36,34 @@ public class WalkTrailResource {
     @PersistenceContext(unitName = "mountainPersistenceContextXA")
     private EntityManager em;
 
-    @GET
-    @Path("example")
-    @Produces("text/plain")
+    @Override
     public String getBookTitle() {
         return "un jour un walk need!!";
     }
 
-    @GET
-    @Path("exampleJson")
-    @Produces("application/json")
+    @Override
     public String getExampleJson() {
         return "un jour un walk need en json bissss!!";
     }
 
-    @GET
-    @Path("allWalks")
-    @Produces( "application/json")
+    @Override
     public List<WalkTrail> getAllWalks() {
         //  Query query = em.createNativeQuery("SELECT * FROM WalkTrail", WalkTrail.class);
         //List<WalkTrail> walks = query.getResultList();
         return walks;
     }
 
-    @GET
-    @Path("/operations/{walkid}")
-    @Produces("application/json")
+    @Override
     public WalkTrail getWalk(@PathParam("walkid") String walkid) {
         return walks.stream().filter(w -> w.getId()==Long.valueOf(walkid)).findFirst().get();
     }
 
-    @GET
-    @Path("/operations")
-    @Produces("application/json")
+    @Override
     public WalkTrail getWalkQuery(@QueryParam("walkid") String walkid) {
         return walks.stream().filter(w -> w.getId()==Long.valueOf(walkid)).findFirst().get();
     }
 
-    @GET
-    @Path("longest")
-    @Produces("application/json")
+    @Override
     public WalkTrail getLongest() {
         return  walks.stream().max(Comparator.naturalOrder()).get();
     }

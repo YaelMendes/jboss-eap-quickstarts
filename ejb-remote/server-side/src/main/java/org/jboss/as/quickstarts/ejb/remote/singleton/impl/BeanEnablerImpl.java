@@ -17,7 +17,9 @@ import java.util.List;
 
 
 @Singleton(name = "BeanEnablerEJB")
-@Remote(BeanEnabler.class)
+@ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
+@Lock(LockType.READ)
+@Startup
 @PermitAll
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class BeanEnablerImpl implements BeanEnabler {
@@ -39,29 +41,30 @@ public class BeanEnablerImpl implements BeanEnabler {
   //  private MountainWS mountainWSRef;
 
     @Resource
-    private SessionContext ctx;
+    private SessionContext sessionContext;
 
     public BeanEnablerImpl() {
     }
 
+    //@RolesAllowed({"Administrator"})
     @Override
     @PermitAll
-    //@RolesAllowed({"Administrator"})
+    @Lock(LockType.WRITE)
+    @AccessTimeout(2000)
     public void createMountain(String name) {
-
-        System.out.println("principal in BeanEnablerImpl.createMountain:"+ctx.getCallerPrincipal());
-        System.out.println("principal.name in BeanEnablerImpl.createMountain:"+ctx.getCallerPrincipal().getName());
 
         List<String> roles = Arrays.asList("Administrator", "Auditor", "Deployer", "Maintainer", "Monitor", "Operator", "SuperUser");
 
-        roles.stream().forEach(r -> System.out.println("isUserInRole("+r+"):"+ctx.isCallerInRole(r)) );
+        roles.stream().forEach(r -> System.out.println("isUserInRole("+r+"):"+ sessionContext.isCallerInRole(r)) );
 
         mountainBean.createMountain(name);
     }
 
+    //@RolesAllowed({"Administrator"})
     @Override
     @PermitAll
-    //@RolesAllowed({"Administrator"})
+    @Lock(LockType.WRITE)
+    @AccessTimeout(2000)
     public void createMountain(Mountain mountain) {
         mountainBean.createMountain(mountain);
     }
@@ -88,11 +91,12 @@ public class BeanEnablerImpl implements BeanEnabler {
     }
 
     @Override
+    @Lock(LockType.WRITE)
+    @AccessTimeout(5000)
     public void sendMessageAndCreateSummit(String mountainName, String summitName,  int summitHeight) {
-        Summit summit = new Summit();
+        Summit summit = new Summit(summitName, summitHeight);
         summit.setMountain(mountainBean.findMountain(mountainName));
-        summit.setName(summitName);
-        summit.setHeight(summitHeight);
+
         mountainBean.createSummit(summit);
         messageBeanProducer.sendOneMessage(mountainName, summitHeight);
     }

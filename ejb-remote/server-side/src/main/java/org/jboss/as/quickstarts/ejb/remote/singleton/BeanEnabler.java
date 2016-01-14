@@ -3,9 +3,10 @@ package org.jboss.as.quickstarts.ejb.remote.singleton;
 import org.jboss.as.quickstarts.dao.Mountain;
 import org.jboss.as.quickstarts.dao.Summit;
 
+import javax.ejb.Remote;
 import java.util.List;
 
-
+@Remote
 public interface BeanEnabler {
 
     void createMountain(String mountainName);

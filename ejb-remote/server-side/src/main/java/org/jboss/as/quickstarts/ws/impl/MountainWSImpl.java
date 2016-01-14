@@ -13,7 +13,6 @@ import javax.interceptor.Interceptors;
 import javax.jws.WebService;
 import java.util.Comparator;
 
-@Remote(MountainWS.class)
 @WebService
 @Stateless
 @Interceptors(LoggingInterceptor.class)
@@ -44,8 +43,8 @@ public class MountainWSImpl implements MountainWS {
 
     @Override
     public Summit findHigherSummit(String mountainName) {
-        Summit highersummit = mountainService.findMountain(mountainName).getSummits().stream().max(Comparator.naturalOrder()).get();
-        System.out.println("higher summit == "+highersummit);
-        return highersummit;
+        Summit higherSummit = mountainService.findMountain(mountainName).getSummits().stream().max(Comparator.naturalOrder()).get();
+        System.out.println("higher summit == "+higherSummit);
+        return higherSummit;
     }
 }
