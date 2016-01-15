@@ -23,4 +23,5 @@ public interface BeanEnabler {
 
     void sendTopicMessage(String mountainName, int mountainHeight);
 
+    void createVosges();
 }

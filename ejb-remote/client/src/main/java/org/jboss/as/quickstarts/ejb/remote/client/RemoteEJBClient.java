@@ -50,13 +50,17 @@ public class RemoteEJBClient {
 
         createJura(beanEnabler);
 
-        createVosgesWS(beanEnabler);
-
         testJMSsendMsg(beanEnabler);
 
         testJMSTopicsendMsg(beanEnabler);
 
+        createVosgesWS(beanEnabler);
+
         System.out.println("...main() finish");
+    }
+
+    private static void createVosgesWS(BeanEnabler beanEnabler) {
+        beanEnabler.createVosges();
     }
 
     private static void testJMSTopicsendMsg(BeanEnabler beanEnabler) {
@@ -84,18 +88,6 @@ public class RemoteEJBClient {
         beanEnabler.sendMessageAndCreateSummit("Les Pyrénées", "Mont impossibbble", -784);
 
         beanEnabler.sendMessageAndCreateSummit("Les Pyrénées", "Mont tout tendre", 1);
-    }
-
-    private static void findHigherSummitFromJura(BeanEnabler beanEnabler) {
-        beanEnabler.findHigherSummit("Le Jura");
-    }
-
-    private static void createVosgesWS(BeanEnabler beanEnabler) {
-
-        //MountainWSImpl mountainWSService = new MountainWSImplService.getCardValidatorPort();
-
-
-
     }
 
     private static void createJura(BeanEnabler beanEnabler) {

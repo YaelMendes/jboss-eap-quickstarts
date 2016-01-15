@@ -8,20 +8,16 @@ import org.jboss.as.quickstarts.utils.LoggingInterceptor;
 import org.jboss.ejb3.annotation.Clustered;
 
 import javax.annotation.Resource;
-import javax.ejb.Local;
-import javax.ejb.SessionContext;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import javax.ejb.*;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
 @Stateless
 @Clustered
-@Local(MountainBean.class)
 @Interceptors(LoggingInterceptor.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class MountainBeanImpl implements MountainBean {
@@ -78,5 +74,25 @@ public class MountainBeanImpl implements MountainBean {
     @Override
     public Mountain findMountain(String mountainName) {
         return  mountainService.findMountain(mountainName);
+    }
+
+    @Override
+    @Asynchronous
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public void createVosges() {
+        Mountain vosges = new Mountain("Les Vosges");
+
+        Summit summit = new Summit("Le Ballon de Guebwiller", 1440);
+        List<Summit> summits = Arrays.asList(summit);
+        vosges.setSummits(summits);
+        summits.stream().forEach(s->s.setMountain(vosges));
+
+        mountainService.createMountain(vosges);
+    }
+
+    @Override
+    @Asynchronous
+    public void deleteVosges() {
+        mountainService.deleteMountain(mountainService.findMountain("Les Vosges"));
     }
 }

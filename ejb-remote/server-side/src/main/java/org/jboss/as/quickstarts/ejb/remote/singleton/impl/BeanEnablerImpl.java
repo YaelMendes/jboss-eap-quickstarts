@@ -91,6 +91,11 @@ public class BeanEnablerImpl implements BeanEnabler {
     }
 
     @Override
+    public void createVosges() {
+        mountainBean.createVosges();
+    }
+
+    @Override
     @Lock(LockType.WRITE)
     @AccessTimeout(5000)
     public void sendMessageAndCreateSummit(String mountainName, String summitName,  int summitHeight) {
