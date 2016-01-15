@@ -6,7 +6,11 @@ import rs.dao.WalkTrail;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.ws.rs.*;
+import javax.persistence.PersistenceException;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import java.util.ArrayList;
@@ -60,6 +64,11 @@ public class WalkTrailRSImpl implements WalkTrailRS {
 
     @Override
     public WalkTrail getWalkQuery(@QueryParam("walkid") String walkid) {
+
+        if (walkid.startsWith("-")) {
+            throw new PersistenceException("invalid id exception");
+        }
+
         return walks.stream().filter(w -> w.getId()==Long.valueOf(walkid)).findFirst().get();
     }
 

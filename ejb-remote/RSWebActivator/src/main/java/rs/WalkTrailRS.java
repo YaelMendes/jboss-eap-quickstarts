@@ -20,7 +20,7 @@ public interface WalkTrailRS {
 
     @GET
     @Path("allWalks")
-    @Produces( "application/json")
+    @Produces("application/json")
     List<WalkTrail> getAllWalks();
 
     @GET
