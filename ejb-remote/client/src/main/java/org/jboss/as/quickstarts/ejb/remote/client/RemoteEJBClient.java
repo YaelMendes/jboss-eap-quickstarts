@@ -56,7 +56,16 @@ public class RemoteEJBClient {
 
         createVosgesWS(beanEnabler);
 
+        createLeReculet(beanEnabler);
+
         System.out.println("...main() finish");
+    }
+
+    private static void createLeReculet(BeanEnabler beanEnabler) {
+        Summit summit = new Summit("Le Reculet", 1719);
+
+        beanEnabler.addSummitToMountain(summit, beanEnabler.findMountain("Le Jura"));
+//to be continued....
     }
 
     private static void createVosgesWS(BeanEnabler beanEnabler) {

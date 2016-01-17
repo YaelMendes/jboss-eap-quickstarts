@@ -7,6 +7,7 @@ import org.jboss.as.quickstarts.dao.Summit;
 import javax.ejb.Local;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.Future;
 
 @Local
 public interface MountainBean {
@@ -27,7 +28,7 @@ public interface MountainBean {
 
     Mountain findMountain(String mountainName);
 
-    void createVosges();
+    Future<Boolean> createVosges();
 
-    void deleteVosges();
+    Future<Boolean> deleteVosges();
 }

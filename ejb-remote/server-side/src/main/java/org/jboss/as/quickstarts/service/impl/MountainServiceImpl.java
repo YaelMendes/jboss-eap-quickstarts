@@ -10,6 +10,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -20,8 +21,10 @@ public class  MountainServiceImpl implements MountainService {
 
     @Override
     public void createMountain(Mountain mountain) {
-            if (entityManager.find(Mountain.class, mountain.getName(), LockModeType.OPTIMISTIC) == null) {
-                entityManager.persist(mountain);
+        if (entityManager.find(Mountain.class, mountain.getName(), LockModeType.OPTIMISTIC) == null) {
+            entityManager.persist(mountain);
+        } else {
+            mountain.getSummits().forEach(this::createSummit);
         }
     }
 
@@ -30,6 +33,11 @@ public class  MountainServiceImpl implements MountainService {
         if (entityManager.find(Mountain.class, mountain.getName(), LockModeType.PESSIMISTIC_WRITE) != null) {
             entityManager.remove(mountain);
         }
+    }
+
+    @Override
+    public List<Mountain> findAllMountains() {
+        return entityManager.createNamedQuery("AllMountains").getResultList();
     }
 
     @Override

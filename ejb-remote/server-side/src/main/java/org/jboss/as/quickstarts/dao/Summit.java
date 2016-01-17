@@ -8,9 +8,11 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
-import java.util.Comparator;
 
 @Getter
 @Setter
@@ -34,7 +36,7 @@ public class Summit implements Comparable<Summit>, Serializable {
     @Basic
     private Integer height;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "mountain_fk", nullable = false)
     @NotNull
     @XmlTransient

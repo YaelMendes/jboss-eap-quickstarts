@@ -37,8 +37,8 @@ public class BeanEnablerImpl implements BeanEnabler {
     @Inject
     private MessageBeanCreator messageBeanCreator;
 
-   // @WebServiceRef(wsdlLocation = "http://localhost:8080/jboss-ejb-remote-server-side/MountainWSImpl?wsdl")
-  //  private MountainWS mountainWSRef;
+    // @WebServiceRef(wsdlLocation = "http://localhost:8080/jboss-ejb-remote-server-side/MountainWSImpl?wsdl")
+    //  private MountainWS mountainWSRef;
 
     @Resource
     private SessionContext sessionContext;
@@ -66,6 +66,19 @@ public class BeanEnablerImpl implements BeanEnabler {
     @Lock(LockType.WRITE)
     @AccessTimeout(2000)
     public void createMountain(Mountain mountain) {
+        mountainBean.createMountain(mountain);
+    }
+
+    @Override
+    public Mountain findMountain(String s) {
+        return mountainBean.findMountain(s);
+    }
+
+    @Override
+    public void addSummitToMountain(Summit summit, Mountain mountain) {
+        summit.setMountain(mountain);
+        mountain.getSummits().add(summit);
+
         mountainBean.createMountain(mountain);
     }
 

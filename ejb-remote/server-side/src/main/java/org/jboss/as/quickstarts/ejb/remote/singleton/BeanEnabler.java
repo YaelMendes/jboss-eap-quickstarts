@@ -13,6 +13,10 @@ public interface BeanEnabler {
 
     void createMountain(Mountain mountain);
 
+    Mountain findMountain(String s);
+
+    void addSummitToMountain(Summit summit, Mountain mountain);
+
     List<Summit> findSummits(String mountainName);
 
     Summit findHigherSummit(String mountainName);
@@ -24,4 +28,5 @@ public interface BeanEnabler {
     void sendTopicMessage(String mountainName, int mountainHeight);
 
     void createVosges();
+
 }

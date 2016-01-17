@@ -10,23 +10,32 @@ import org.jboss.ejb3.annotation.Clustered;
 import javax.annotation.Resource;
 import javax.ejb.*;
 import javax.inject.Inject;
+import javax.interceptor.ExcludeClassInterceptors;
+import javax.interceptor.ExcludeDefaultInterceptors;
 import javax.interceptor.Interceptors;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.Future;
+import java.util.logging.Logger;
 
 @Stateless
 @Clustered
 @Interceptors(LoggingInterceptor.class)
-@TransactionAttribute(TransactionAttributeType.MANDATORY)
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class MountainBeanImpl implements MountainBean {
+
+    private Logger logger = Logger.getLogger("org.jboss.as.quickstarts");
 
     @Inject
     MountainService mountainService;
 
     @Resource
     private SessionContext ctx;
+
+    @Resource
+    TimerService timerService;
 
     @Override
     public void createMountain(Mountain mountain) {
@@ -49,6 +58,8 @@ public class MountainBeanImpl implements MountainBean {
     @Override
     public void createSummit(Summit summit) {
         mountainService.createSummit(summit);
+
+        timerService.createTimer(2, summit);
     }
 
     @Override
@@ -78,8 +89,9 @@ public class MountainBeanImpl implements MountainBean {
 
     @Override
     @Asynchronous
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    public void createVosges() {
+    @ExcludeClassInterceptors
+    @ExcludeDefaultInterceptors
+    public Future<Boolean> createVosges() {
         Mountain vosges = new Mountain("Les Vosges");
 
         Summit summit = new Summit("Le Ballon de Guebwiller", 1440);
@@ -88,11 +100,33 @@ public class MountainBeanImpl implements MountainBean {
         summits.stream().forEach(s->s.setMountain(vosges));
 
         mountainService.createMountain(vosges);
+
+        return new AsyncResult<>(Boolean.TRUE);
     }
 
     @Override
     @Asynchronous
-    public void deleteVosges() {
+    public Future<Boolean> deleteVosges() {
         mountainService.deleteMountain(mountainService.findMountain("Les Vosges"));
+
+        return new AsyncResult<>(Boolean.TRUE);
     }
+
+    @Schedule(second = "*/40", minute = "*", hour = "*", persistent = true)
+    public void testMountains() {
+        List<Mountain> mountains = mountainService.findAllMountains();
+
+        mountains.forEach(System.out::println);
+    }
+
+    @Timeout
+    public void showHigher(Timer timer) {
+
+        Summit summitCreated = (Summit) timer.getInfo();
+
+        Summit higherSummit = findHigherSummit(summitCreated.getMountain()).orElse(summitCreated);
+
+        System.out.println("Timer created by createSummit--- higher summit="+higherSummit);
+    }
+
 }

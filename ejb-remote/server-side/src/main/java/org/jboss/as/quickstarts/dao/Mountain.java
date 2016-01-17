@@ -5,13 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Version;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -23,6 +17,7 @@ import java.util.List;
 @Setter
 @ToString
 @XmlRootElement
+@NamedQuery(name="AllMountains", query="select m from Mountain m")
 public class Mountain implements Serializable {
 
     @Id
