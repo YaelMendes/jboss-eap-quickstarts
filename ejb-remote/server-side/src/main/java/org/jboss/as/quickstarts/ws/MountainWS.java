@@ -15,6 +15,9 @@ public interface MountainWS {
     @WebResult(name = "mountainFound")
     public Mountain nameExists(@WebParam(name = "mountainName")String mountainName);
 
+    @WebResult(name = "mountainCreated")
+    public boolean createMountain(@WebParam(name = "mountainName")String mountainName);
+
     @WebResult(name = "IsCreated")
     public boolean createSummit(@WebParam(name = "mountainName")String mountainName,
                                 @WebParam(name = "summitName")String summitName,

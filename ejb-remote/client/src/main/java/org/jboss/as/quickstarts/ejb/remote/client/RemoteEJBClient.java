@@ -104,11 +104,11 @@ public class RemoteEJBClient {
 
         beanEnabler.sendOneMessage("in see deeper summit", -1547);
 
-        beanEnabler.sendMessageAndCreateSummit("Les Pyrénées", "Mont Perdu", 3355);
+        beanEnabler.sendMessageAndCreateSummit("Les Pyrénées", "La Rhune", 1100);
 
-        beanEnabler.sendMessageAndCreateSummit("Les Pyrénées", "Mont impossibbble", -784);
+        beanEnabler.sendMessageAndCreateSummit("Les Pyrénées", "Mont ren du tout que dalle", -7847);
 
-        beanEnabler.sendMessageAndCreateSummit("Les Pyrénées", "Mont tout tendre", 1);
+        beanEnabler.sendMessageAndCreateSummit("Les Pyrénées", "La dent d'Orlu", 2222);
     }
 
     private static void createJura(BeanEnabler beanEnabler) {

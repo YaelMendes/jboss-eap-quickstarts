@@ -1,15 +1,15 @@
 package org.jboss.as.quickstarts.ws.impl;
 
+import org.jboss.as.quickstarts.beans.MountainBean;
 import org.jboss.as.quickstarts.dao.Mountain;
 import org.jboss.as.quickstarts.dao.Summit;
-import org.jboss.as.quickstarts.service.MountainService;
 import org.jboss.as.quickstarts.utils.LoggingInterceptor;
 import org.jboss.as.quickstarts.ws.MountainWS;
 
-import javax.ejb.Remote;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.Comparator;
 
@@ -18,15 +18,21 @@ import java.util.Comparator;
 @Interceptors(LoggingInterceptor.class)
 public class MountainWSImpl implements MountainWS {
 
-    @Inject
-    MountainService mountainService;
+    @EJB
+    private MountainBean mountainBean;
 
     @Override
     public Mountain nameExists(String mountainName) {
-        Mountain mountain = mountainService.findMountain(mountainName);
+        Mountain mountain = mountainBean.findMountain(mountainName);
 
         System.out.println("retour de nameExists="+mountain);
         return mountain;
+    }
+
+    @Override
+    public boolean createMountain(@WebParam(name = "mountainName") String mountainName) {
+        mountainBean.createMountain(mountainName);
+        return true;
     }
 
     @Override
@@ -34,16 +40,17 @@ public class MountainWSImpl implements MountainWS {
                              String summitName,
                              int summitHeight) {
 
-        Mountain mountain = mountainService.findMountain(mountainName);
+        Mountain mountain = mountainBean.findMountain(mountainName);
         Summit summit = new Summit(summitName, summitHeight);
         summit.setMountain(mountain);
 
-        return mountainService.createSummit(summit);
+        mountainBean.createSummit(summit);
+        return true;
     }
 
     @Override
     public Summit findHigherSummit(String mountainName) {
-        Summit higherSummit = mountainService.findMountain(mountainName).getSummits().stream().max(Comparator.naturalOrder()).get();
+        Summit higherSummit = mountainBean.findMountain(mountainName).getSummits().stream().max(Comparator.naturalOrder()).get();
         System.out.println("higher summit == "+higherSummit);
         return higherSummit;
     }

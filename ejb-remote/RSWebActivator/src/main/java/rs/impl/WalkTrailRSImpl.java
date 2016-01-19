@@ -25,8 +25,8 @@ public class WalkTrailRSImpl implements WalkTrailRS {
     @Context
     private UriInfo uriInfo;
 
-    // @EJB
-    // MountainService mountainService;
+  /*  @EJB
+    private MountainBean mountainBean;*/
 
     static List<WalkTrail> walks = new ArrayList<>();
 

@@ -8,7 +8,16 @@ import org.jboss.as.quickstarts.utils.LoggingInterceptor;
 import org.jboss.ejb3.annotation.Clustered;
 
 import javax.annotation.Resource;
-import javax.ejb.*;
+import javax.ejb.AsyncResult;
+import javax.ejb.Asynchronous;
+import javax.ejb.Schedule;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateless;
+import javax.ejb.Timeout;
+import javax.ejb.Timer;
+import javax.ejb.TimerService;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.ExcludeClassInterceptors;
 import javax.interceptor.ExcludeDefaultInterceptors;
@@ -112,7 +121,7 @@ public class MountainBeanImpl implements MountainBean {
         return new AsyncResult<>(Boolean.TRUE);
     }
 
-    @Schedule(second = "*/40", minute = "*", hour = "*", persistent = true)
+    @Schedule(second = "*/120", minute = "*", hour = "*", persistent = false)
     public void testMountains() {
         List<Mountain> mountains = mountainService.findAllMountains();
 

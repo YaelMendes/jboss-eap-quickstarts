@@ -192,6 +192,12 @@
             <groupId>org.jboss.jbossas</groupId>
             <artifactId>jboss-as-client</artifactId>
             <version>6.1.0.Final</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jboss-ejb3-async-impl</artifactId>
+                    <groupId>org.jboss.ejb3.async</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
