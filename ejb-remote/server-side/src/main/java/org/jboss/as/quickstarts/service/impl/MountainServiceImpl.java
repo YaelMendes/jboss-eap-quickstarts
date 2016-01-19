@@ -37,7 +37,7 @@ public class  MountainServiceImpl implements MountainService {
 
     @Override
     public List<Mountain> findAllMountains() {
-        return entityManager.createNamedQuery("AllMountains").getResultList();
+        return entityManager.createNamedQuery(Mountain.FIND_ALL).getResultList();
     }
 
     @Override

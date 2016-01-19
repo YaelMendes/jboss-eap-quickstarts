@@ -29,4 +29,5 @@ public interface BeanEnabler {
 
     void createVosges();
 
+    void deleteMountain(String mountainName);
 }

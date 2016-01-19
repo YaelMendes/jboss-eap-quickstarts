@@ -18,6 +18,7 @@ import java.util.List;
 
 @Singleton(name = "BeanEnablerEJB")
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
+@AccessTimeout(5000)
 @Lock(LockType.READ)
 @Startup
 @PermitAll
@@ -106,6 +107,11 @@ public class BeanEnablerImpl implements BeanEnabler {
     @Override
     public void createVosges() {
         mountainBean.createVosges();
+    }
+
+    @Override
+    public void deleteMountain(String mountainName) {
+        mountainBean.deleteMountain(mountainName);
     }
 
     @Override

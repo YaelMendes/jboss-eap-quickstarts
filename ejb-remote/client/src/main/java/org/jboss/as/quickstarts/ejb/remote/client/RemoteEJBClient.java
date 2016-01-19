@@ -58,14 +58,26 @@ public class RemoteEJBClient {
 
         createLeReculet(beanEnabler);
 
+        createMassifArmoricain(beanEnabler);
+
+        deleteMassifArmoricain(beanEnabler);
+
         System.out.println("...main() finish");
+    }
+
+    private static void deleteMassifArmoricain(BeanEnabler beanEnabler) {
+        beanEnabler.deleteMountain("Massif Armoricain");
+    }
+
+    private static void createMassifArmoricain(BeanEnabler beanEnabler) {
+        Mountain armoricain = new Mountain("Massif Armoricain");
+        beanEnabler.createMountain(armoricain);
     }
 
     private static void createLeReculet(BeanEnabler beanEnabler) {
         Summit summit = new Summit("Le Reculet", 1719);
 
         beanEnabler.addSummitToMountain(summit, beanEnabler.findMountain("Le Jura"));
-//to be continued....
     }
 
     private static void createVosgesWS(BeanEnabler beanEnabler) {

@@ -17,15 +17,19 @@ import java.util.List;
 @Setter
 @ToString
 @XmlRootElement
-@NamedQuery(name="AllMountains", query="select m from Mountain m")
+@NamedQueries({
+        @NamedQuery(name = Mountain.FIND_ALL, query = "select m from Mountain m")
+})
 public class Mountain implements Serializable {
+
+    public static final String FIND_ALL = "allMountainsSQL";
 
     @Id
     @NotNull
     //@XmlAttribute(name = "xmlName",  required = true)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="mountain", fetch=FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="mountain", fetch=FetchType.EAGER, orphanRemoval=true)
     private List<Summit> summits = new ArrayList<>();
 
     @Version

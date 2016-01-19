@@ -51,8 +51,8 @@ public class MountainBeanImpl implements MountainBean {
     }
 
     @Override
-    public void deleteMountain(Mountain mountain) {
-        mountainService.deleteMountain(mountain);
+    public void deleteMountain(String mountainName) {
+        mountainService.deleteMountain(mountainService.findMountain(mountainName));
     }
 
     @Override

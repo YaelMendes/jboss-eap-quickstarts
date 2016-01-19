@@ -16,7 +16,7 @@ public interface MountainBean {
 
     void createMountain(String mountainName);
 
-    void deleteMountain(Mountain mountain);
+    void deleteMountain(String mountain);
 
     void createSummit(Summit summit);
 
