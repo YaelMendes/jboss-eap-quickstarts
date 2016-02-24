@@ -14,16 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.ejb.remote.stateful;
+package org.jboss.as.quickstarts.ejb.remote.stateful.impl;
 
-import javax.ejb.Remote;
+import org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter;
+
 import javax.ejb.Stateful;
 
 /**
  * @author Jaikiran Pai
  */
 @Stateful
-@Remote(RemoteCounter.class)
+//@Remote(RemoteCounter.class)
 public class RemoteCounterImpl implements RemoteCounter {
 
     private int count = 0;

@@ -16,16 +16,31 @@
  */
 package org.jboss.as.quickstarts.ejb.remote.client;
 
+import org.jboss.as.quickstarts.beans.CountryBean;
 import org.jboss.as.quickstarts.dao.Mountain;
 import org.jboss.as.quickstarts.dao.Summit;
 import org.jboss.as.quickstarts.ejb.remote.singleton.BeanEnabler;
 import org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter;
 import org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator;
 
-import javax.jms.*;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
 import javax.jms.Queue;
-import javax.naming.*;
-import java.util.*;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NameClassPair;
+import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.List;
 
 /**
  * A sample program which acts a remote client for a EJB deployed on JBoss EAP server. This program shows how to lookup stateful and
@@ -62,7 +77,26 @@ public class RemoteEJBClient {
 
         deleteMassifArmoricain(beanEnabler);
 
+       // createCountryFrance();
+
+        invokeStatelessBean();
+
+        invokeStatefulBean();
+
         System.out.println("...main() finish");
+    }
+
+    private static void createCountryFrance() throws NamingException {
+        final Hashtable<String, String> jndiProperties = new Hashtable<>();
+        jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+        final Context context = new InitialContext(jndiProperties);
+
+        final CountryBean countryBean = (CountryBean) context.lookup("ejb:/jboss-ejb-remote-server-side/CountryBeanEJB!"
+                + CountryBean.class.getName() + "?stateful");
+
+        //countryBean.createCountry("La France");
+
+        countryBean.sysout();
     }
 
     private static void deleteMassifArmoricain(BeanEnabler beanEnabler) {

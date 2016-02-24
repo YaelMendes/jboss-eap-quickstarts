@@ -32,6 +32,9 @@ public class Mountain implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy="mountain", fetch=FetchType.EAGER, orphanRemoval=true)
     private List<Summit> summits = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "mountains")
+    private List<Country> countries;
+
     @Version
     @Column(name = "optlock", columnDefinition = "integer DEFAULT 0", nullable = false)
     @Getter(AccessLevel.NONE)
